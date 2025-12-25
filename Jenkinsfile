@@ -37,16 +37,14 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['ec2-ssh-key']) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                      // 1. Clear old files
-                     bat "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} 'sudo rm -rf ${REMOTE_DIR}/*'"
+                     // We use the SSH_KEY variable provided by withCredentials. 
+                     // Quotes around ${SSH_KEY} handle paths with spaces (common on Windows).
+                     bat "ssh -o StrictHostKeyChecking=no -i \"${SSH_KEY}\" ${REMOTE_USER}@${REMOTE_HOST} 'sudo rm -rf ${REMOTE_DIR}/*'"
                      
-                     // 2. Upload new build (using scp) - converting Windows path to Linux style for scp might be tricky, 
-                     // so we enter the dist folder and copy contents.
-                     // Note: Jenkins on Windows running 'scp' might behave differently. 
-                     // We assume 'scp' is available in the path (e.g. Git Bash).
-                     
-                     bat "scp -o StrictHostKeyChecking=no -r dist/* ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/"
+                     // 2. Upload new build (using scp)
+                     bat "scp -o StrictHostKeyChecking=no -i \"${SSH_KEY}\" -r dist/* ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/"
                 }
             }
         }
