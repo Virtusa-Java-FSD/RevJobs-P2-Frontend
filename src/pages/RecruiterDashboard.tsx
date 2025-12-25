@@ -404,8 +404,10 @@ const RecruiterDashboard: React.FC = () => {
                                                         sx={{
                                                             fontWeight: 'bold',
                                                             '&:hover': {
-                                                                bgcolor: '#000000 !important',
-                                                                color: '#ffffff !important'
+                                                                color: '#ffffff !important',
+                                                                '& .MuiChip-label': {
+                                                                    color: '#ffffff !important'
+                                                                }
                                                             }
                                                         }}
                                                     />
@@ -615,7 +617,7 @@ const RecruiterDashboard: React.FC = () => {
                     </Grid>
                 </TabPanel>
             </Card>
-        </Box>
+        </Box >
     );
 };
 
