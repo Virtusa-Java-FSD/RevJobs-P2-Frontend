@@ -39,9 +39,8 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                      // 1. Clear old files
-                     // We use the SSH_KEY variable provided by withCredentials. 
-                     // Quotes around ${SSH_KEY} handle paths with spaces (common on Windows).
-                     bat "ssh -o StrictHostKeyChecking=no -i \"${SSH_KEY}\" ${REMOTE_USER}@${REMOTE_HOST} 'sudo rm -rf ${REMOTE_DIR}/*'"
+                     // Windows cmd handles single quotes poorly. We use escaped double quotes for the remote command.
+                     bat "ssh -o StrictHostKeyChecking=no -i \"${SSH_KEY}\" ${REMOTE_USER}@${REMOTE_HOST} \"sudo rm -rf ${REMOTE_DIR}/*\""
                      
                      // 2. Upload new build (using scp)
                      bat "scp -o StrictHostKeyChecking=no -i \"${SSH_KEY}\" -r dist/* ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/"
