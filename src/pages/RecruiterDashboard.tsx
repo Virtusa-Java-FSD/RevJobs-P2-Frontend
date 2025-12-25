@@ -401,6 +401,13 @@ const RecruiterDashboard: React.FC = () => {
                                                         label={application.status || 'PENDING'}
                                                         color={getStatusColor(application.status) as any}
                                                         size="small"
+                                                        sx={{
+                                                            fontWeight: 'bold',
+                                                            '&:hover': {
+                                                                bgcolor: '#000000 !important',
+                                                                color: '#ffffff !important'
+                                                            }
+                                                        }}
                                                     />
                                                 </TableCell>
                                                 <TableCell>
