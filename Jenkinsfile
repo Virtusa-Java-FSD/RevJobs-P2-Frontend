@@ -9,14 +9,17 @@ pipeline {
         SSH_CREDENTIALS_ID = "ec2-ssh-key" // You must create this ID in Jenkins Credentials
     }
 
-    tools {
-        nodejs 'NodeJS 18' // Ensure this matches your Global Tool Configuration in Jenkins
-    }
+    // tools {
+    //     nodejs 'NodeJS 18' 
+    // }
 
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+                // Debug: Print node and npm versions to verify environment
+                bat 'node -v'
+                bat 'npm -v'
             }
         }
 
