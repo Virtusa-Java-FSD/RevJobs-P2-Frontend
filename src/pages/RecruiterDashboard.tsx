@@ -123,8 +123,12 @@ const RecruiterDashboard: React.FC = () => {
 
     const commonChipSx = {
         '&:hover': {
+            backgroundColor: '#000000 !important',
             color: '#ffffff !important',
             '& .MuiChip-label': {
+                color: '#ffffff !important'
+            },
+            '& .MuiChip-icon': {
                 color: '#ffffff !important'
             }
         }
