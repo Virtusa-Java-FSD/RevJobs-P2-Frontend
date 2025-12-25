@@ -121,18 +121,32 @@ const RecruiterDashboard: React.FC = () => {
         }
     };
 
-    const commonChipSx = {
-        cursor: 'pointer',
-        '&:hover': {
-            backgroundColor: '#000000 !important',
-            color: '#ffffff !important',
+    const getChipStyles = (status: string) => {
+        const baseColors: Record<string, { bg: string; text: string }> = {
+            'PENDING': { bg: '#0288d1', text: '#ffffff' },
+            'REVIEWED': { bg: '#ed6c02', text: '#ffffff' },
+            'SHORTLISTED': { bg: '#2e7d32', text: '#ffffff' },
+            'REJECTED': { bg: '#d32f2f', text: '#ffffff' },
+            'ACCEPTED': { bg: '#2e7d32', text: '#ffffff' },
+        };
+
+        const colors = baseColors[status?.toUpperCase()] || { bg: '#757575', text: '#ffffff' };
+
+        return {
+            backgroundColor: colors.bg,
+            color: colors.text,
+            cursor: 'pointer',
             '& .MuiChip-label': {
-                color: '#ffffff !important'
+                color: colors.text
             },
-            '& .MuiChip-icon': {
-                color: '#ffffff !important'
+            '&:hover': {
+                backgroundColor: '#000000 !important',
+                color: '#ffffff !important',
+                '& .MuiChip-label': {
+                    color: '#ffffff !important'
+                }
             }
-        }
+        };
     };
 
     const handleRefresh = () => {
@@ -413,9 +427,8 @@ const RecruiterDashboard: React.FC = () => {
                                                 <TableCell>
                                                     <Chip
                                                         label={application.status || 'PENDING'}
-                                                        color={getStatusColor(application.status) as any}
                                                         size="small"
-                                                        sx={commonChipSx}
+                                                        sx={getChipStyles(application.status)}
                                                     />
                                                 </TableCell>
                                                 <TableCell>
