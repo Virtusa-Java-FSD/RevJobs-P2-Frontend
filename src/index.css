@@ -222,6 +222,12 @@ body {
   transform: translateY(-2px) !important;
 }
 
+/* Specific override for the global text color rule */
+.MuiChip-root:hover .MuiChip-label,
+.MuiChip-root:hover span {
+  color: #ffffff !important;
+}
+
 /* Auth Pages */
 .auth-page {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
