@@ -427,8 +427,9 @@ const RecruiterDashboard: React.FC = () => {
                                                 <TableCell>
                                                     <Chip
                                                         label={application.status || 'PENDING'}
+                                                        color={getStatusColor(application.status) as any}
                                                         size="small"
-                                                        sx={getChipStyles(application.status)}
+                                                        sx={commonChipSx}
                                                     />
                                                 </TableCell>
                                                 <TableCell>
