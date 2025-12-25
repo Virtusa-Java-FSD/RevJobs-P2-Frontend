@@ -122,6 +122,7 @@ const RecruiterDashboard: React.FC = () => {
     };
 
     const commonChipSx = {
+        cursor: 'pointer',
         '&:hover': {
             backgroundColor: '#000000 !important',
             color: '#ffffff !important',
@@ -392,7 +393,7 @@ const RecruiterDashboard: React.FC = () => {
                                             return matchesSearch && matchesJob;
                                         })
                                         .map((application) => (
-                                            <TableRow key={application.id}>
+                                            <TableRow key={application.id} hover>
                                                 <TableCell>
                                                     <Box display="flex" alignItems="center">
                                                         <Avatar sx={{ mr: 2, bgcolor: 'primary.main' }}>
