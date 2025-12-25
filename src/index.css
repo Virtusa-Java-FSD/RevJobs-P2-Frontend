@@ -73,7 +73,8 @@ body {
 }
 
 /* Cards - Responsive */
-.MuiPaper-root, .MuiCard-root {
+.MuiPaper-root,
+.MuiCard-root {
   background: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(10px) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -94,12 +95,23 @@ body {
 }
 
 /* Typography */
-.MuiTypography-root, h1, h2, h3, h4, h5, h6, p, span {
+/* Typography */
+.MuiTypography-root,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span:not(.MuiChip-label) {
   color: #000000 !important;
   font-weight: 500 !important;
 }
 
-.MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3 {
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3 {
   font-weight: 700 !important;
   color: #000000 !important;
 }
@@ -299,11 +311,11 @@ body {
   .MuiToolbar-root {
     padding: 0 16px !important;
   }
-  
+
   .nav-links {
     display: none;
   }
-  
+
   .mobile-menu {
     display: block;
   }
@@ -358,6 +370,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -406,7 +419,7 @@ body {
   .MuiContainer-root {
     padding: 0 16px !important;
   }
-  
+
   .auth-container {
     padding: 24px 16px !important;
     margin: 16px 8px !important;
