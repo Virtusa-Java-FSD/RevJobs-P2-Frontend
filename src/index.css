@@ -1,0 +1,409 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+  min-height: 100vh;
+  color: #2d3748;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+  background: transparent !important;
+}
+
+/* Responsive Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: #ffffff !important;
+  padding: 80px 0;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 40px 0;
+  }
+}
+
+/* Search Card Glassmorphism */
+.search-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 24px !important;
+}
+
+/* Main content containers */
+.MuiContainer-root {
+  background: transparent !important;
+}
+
+/* Header */
+.MuiAppBar-root {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.MuiAppBar-root * {
+  color: #2d3748 !important;
+}
+
+/* Cards - Responsive */
+.MuiPaper-root, .MuiCard-root {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 16px !important;
+  transition: all 0.3s ease !important;
+}
+
+.MuiCard-root:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15) !important;
+}
+
+@media (max-width: 768px) {
+  .MuiCard-root {
+    margin: 8px !important;
+  }
+}
+
+/* Typography */
+.MuiTypography-root, h1, h2, h3, h4, h5, h6, p, span {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3 {
+  font-weight: 700 !important;
+  color: #000000 !important;
+}
+
+/* Buttons - Attractive Gradient */
+.MuiButton-contained {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4) !important;
+  border-radius: 12px !important;
+  padding: 12px 32px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.MuiButton-contained:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6) !important;
+}
+
+@media (max-width: 768px) {
+  .MuiButton-contained {
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+  }
+}
+
+.MuiButton-outlined {
+  color: #ff6b6b !important;
+  border: 2px solid #ff6b6b !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 12px !important;
+  padding: 10px 28px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+}
+
+.MuiButton-outlined:hover {
+  background: #ff6b6b !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Input Fields - Responsive */
+.MuiTextField-root .MuiOutlinedInput-root {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.MuiInputBase-root {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #2d3748 !important;
+  font-weight: 500 !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #ff6b6b !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #ff6b6b !important;
+  border-width: 2px !important;
+}
+
+/* Alert components */
+.MuiAlert-root {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Links */
+.MuiLink-root {
+  color: #333333 !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+
+.MuiLink-root:hover {
+  color: #000000 !important;
+}
+
+/* Select dropdown */
+.MuiSelect-root {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Menu items */
+.MuiMenuItem-root {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiMenuItem-root:hover {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Chips with modern styling */
+.MuiChip-root {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+
+.MuiChip-root:hover {
+  background: #333333 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Auth Pages */
+.auth-page {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.auth-container {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 24px !important;
+    margin: 16px !important;
+    border-radius: 16px !important;
+  }
+}
+
+/* Hero section */
+.hero-gradient {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Feature cards */
+.feature-card {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 24px !important;
+  padding: 32px !important;
+  transition: all 0.4s ease !important;
+}
+
+.feature-card:hover {
+  transform: translateY(-12px) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Job Cards - Grid Responsive */
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+  padding: 24px 0;
+}
+
+@media (max-width: 768px) {
+  .job-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px 0;
+  }
+}
+
+/* Navigation - Mobile Responsive */
+@media (max-width: 768px) {
+  .MuiToolbar-root {
+    padding: 0 16px !important;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .mobile-menu {
+    display: block;
+  }
+}
+
+/* Typography - Responsive */
+.MuiTypography-h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+.MuiTypography-h2 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem) !important;
+  font-weight: 600 !important;
+}
+
+.MuiTypography-h3 {
+  font-size: clamp(1.25rem, 3vw, 2rem) !important;
+  font-weight: 600 !important;
+}
+
+/* Section Backgrounds */
+.section-light {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+  padding: 80px 0;
+}
+
+@media (max-width: 768px) {
+  .section-light {
+    padding: 60px 0;
+  }
+}
+
+.section-dark {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
+  color: #ffffff !important;
+  padding: 80px 0;
+}
+
+/* Loading States */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Glassmorphism Effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 20px !important;
+}
+
+/* Job Application Status */
+.status-applied {
+  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%) !important;
+}
+
+.status-reviewing {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%) !important;
+}
+
+.status-interview {
+  background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%) !important;
+}
+
+.status-hired {
+  background: linear-gradient(135deg, #00b894 0%, #00a085 100%) !important;
+}
+
+.status-rejected {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%) !important;
+}
+
+/* Spacing improvements */
+.MuiContainer-root {
+  padding: 0 32px !important;
+}
+
+@media (max-width: 768px) {
+  .MuiContainer-root {
+    padding: 0 16px !important;
+  }
+  
+  .auth-container {
+    padding: 24px 16px !important;
+    margin: 16px 8px !important;
+    width: auto !important;
+  }
+}

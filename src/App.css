@@ -1,0 +1,30 @@
+/* Global overrides */
+html, body, #root {
+  background-color: #2196f3 !important;
+  color: #000000 !important;
+  min-height: 100vh;
+}
+
+/* Force all containers to blue background */
+.MuiBox-root, .MuiContainer-root, div {
+  background-color: #2196f3 !important;
+}
+
+/* Force all text to black */
+h1, h2, h3, h4, h5, h6, p, span, div, a, button {
+  color: #000000 !important;
+}
+
+/* Keep cards and papers white */
+.MuiPaper-root, .MuiCard-root {
+  background-color: #ffffff !important;
+}
+
+/* Header blue with white text */
+.MuiAppBar-root {
+  background-color: #1976d2 !important;
+}
+
+.MuiAppBar-root * {
+  color: #ffffff !important;
+}

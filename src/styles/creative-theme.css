@@ -1,0 +1,782 @@
+/* ============================================
+   CREATIVE & COLORFUL THEME
+   ============================================ */
+
+/* Purple Theme for Home Page */
+.home-page {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+/* Orange Theme for Jobs Page */
+.jobs-page {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 50%, #ff6b6b 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+/* Green Theme for Companies Page */
+.companies-page {
+  background: linear-gradient(135deg, #0ba360 0%, #3cba92 50%, #30dd8a 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+/* Blue Theme for Blog Page */
+.blog-page {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #43e97b 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+/* Pink Theme for Careers Page */
+.careers-page {
+  background: linear-gradient(135deg, #f857a6 0%, #ff5858 50%, #ffa726 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+/* Teal Theme for Services Page */
+.services-page {
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 50%, #667eea 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+/* Purple Theme for Login Page */
+.login-page {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Purple Theme for Register Page */
+.register-page {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating Particles */
+.login-page::before,
+.register-page::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  top: -300px;
+  right: -300px;
+  animation: float 20s ease-in-out infinite;
+}
+
+.login-page::after,
+.register-page::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  bottom: -250px;
+  left: -250px;
+  animation: float 15s ease-in-out infinite reverse;
+}
+
+/* Motivational Quote Box */
+.motivation-box {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+  border-radius: 20px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 30px rgba(102,126,234,0.3);
+  border-left: 6px solid #667eea;
+  animation: slideInRight 0.8s ease-out, glowBorder 3s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes glowBorder {
+  0%, 100% {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 30px rgba(102,126,234,0.3);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 50px rgba(102,126,234,0.6), 0 0 80px rgba(102,126,234,0.3);
+  }
+}
+
+.motivation-box::before {
+  content: '💡';
+  position: absolute;
+  font-size: 80px;
+  opacity: 0.1;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.motivation-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #667eea;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.motivation-author {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: right;
+}
+
+/* Interview Tips Card */
+.tips-card {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  border-radius: 20px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 40px rgba(255,107,107,0.3);
+  animation: fadeInUp 0.8s ease-out, cardGlow 3s ease-in-out infinite;
+}
+
+@keyframes cardGlow {
+  0%, 100% {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 40px rgba(255,107,107,0.3);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 60px rgba(255,107,107,0.6), 0 0 90px rgba(255,107,107,0.3);
+  }
+}
+
+.tips-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ff6b6b;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tips-title::before {
+  content: '🎯';
+  font-size: 1.8rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.tip-item {
+  background: rgba(255,255,255,0.9);
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tip-item:hover {
+  transform: translateX(10px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.tip-icon {
+  font-size: 1.5rem;
+  animation: rotate 3s linear infinite;
+}
+
+/* Success Stories */
+.success-story {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  border-radius: 20px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 35px rgba(168,237,234,0.4);
+  animation: scaleIn 0.8s ease-out, successGlow 3s ease-in-out infinite;
+}
+
+@keyframes successGlow {
+  0%, 100% {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 35px rgba(168,237,234,0.4);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 55px rgba(168,237,234,0.7), 0 0 85px rgba(168,237,234,0.4);
+  }
+}
+
+.success-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Gamification Points */
+.points-badge {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 5px 20px rgba(245,87,108,0.4), 0 0 30px rgba(240,147,251,0.5);
+  animation: bounce 2s ease-in-out infinite, badgeGlow 2s ease-in-out infinite;
+}
+
+@keyframes badgeGlow {
+  0%, 100% {
+    box-shadow: 0 5px 20px rgba(245,87,108,0.4), 0 0 30px rgba(240,147,251,0.5);
+  }
+  50% {
+    box-shadow: 0 5px 20px rgba(245,87,108,0.6), 0 0 50px rgba(240,147,251,0.8), 0 0 80px rgba(240,147,251,0.4);
+  }
+}
+
+.points-badge::before {
+  content: '⭐';
+  font-size: 1.2rem;
+}
+
+/* Progress Bar */
+.progress-container {
+  background: rgba(255,255,255,0.3);
+  border-radius: 50px;
+  height: 30px;
+  overflow: hidden;
+  margin: 20px 0;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 15px;
+  color: white;
+  font-weight: 700;
+  animation: progressFill 2s ease-out;
+  box-shadow: 0 2px 10px rgba(102,126,234,0.5);
+}
+
+@keyframes progressFill {
+  from { width: 0%; }
+}
+
+/* Colorful Cards */
+.card-purple {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.card-orange {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+}
+
+.card-green {
+  background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);
+  color: white;
+}
+
+.card-blue {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.card-pink {
+  background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%);
+  color: white;
+}
+
+.card-teal {
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+  color: white;
+}
+
+/* Floating Icons */
+.floating-icon {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Sparkle Effect */
+.sparkle {
+  position: relative;
+  display: inline-block;
+}
+
+.sparkle::after {
+  content: '✨';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  animation: sparkleRotate 2s linear infinite;
+}
+
+@keyframes sparkleRotate {
+  0% { transform: rotate(0deg) scale(1); opacity: 1; }
+  50% { transform: rotate(180deg) scale(1.2); opacity: 0.7; }
+  100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+/* Celebration Confetti */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #f093fb;
+  animation: confettiFall 3s linear infinite;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Encouraging Badges */
+.badge-container {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.achievement-badge {
+  background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2), 0 0 25px rgba(255,216,155,0.4);
+  animation: popIn 0.5s ease-out, achievementGlow 2.5s ease-in-out infinite;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.achievement-badge:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 50px rgba(255,216,155,0.8), 0 0 80px rgba(255,216,155,0.4);
+}
+
+@keyframes achievementGlow {
+  0%, 100% {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2), 0 0 25px rgba(255,216,155,0.4);
+  }
+  50% {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2), 0 0 40px rgba(255,216,155,0.7);
+  }
+}
+
+/* Motivational Stats */
+.stat-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 30px rgba(102,126,234,0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: statGlow 3s ease-in-out infinite;
+}
+
+.stat-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.2), 0 0 60px rgba(102,126,234,0.6), 0 0 100px rgba(102,126,234,0.3);
+}
+
+@keyframes statGlow {
+  0%, 100% {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 30px rgba(102,126,234,0.2);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15), 0 0 45px rgba(102,126,234,0.4);
+  }
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: countUp 2s ease-out;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 8px;
+}
+
+/* Emoji Reactions */
+.emoji-reaction {
+  font-size: 2rem;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.emoji-reaction:hover {
+  transform: scale(1.5) rotate(20deg);
+}
+
+/* Colorful Dividers */
+.rainbow-divider {
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #fa709a, #fee140, #0ba360, #4facfe);
+  background-size: 200% 200%;
+  animation: rainbowMove 5s linear infinite;
+  border-radius: 2px;
+  margin: 30px 0;
+}
+
+@keyframes rainbowMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Pulsing Glow Button */
+.glow-button {
+  position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(102,126,234,0.6), 0 0 60px rgba(102,126,234,0.4), 0 0 90px rgba(102,126,234,0.2);
+  animation: glowPulse 1.5s ease-in-out infinite, floatUpDown 3s ease-in-out infinite;
+}
+
+.glow-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  animation: rotateGlow 4s linear infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(102,126,234,0.6), 0 0 60px rgba(102,126,234,0.4), 0 0 90px rgba(102,126,234,0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(102,126,234,0.9), 0 0 100px rgba(102,126,234,0.7), 0 0 150px rgba(102,126,234,0.5);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Tooltip with Tips */
+.custom-tooltip {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  animation: tooltipBounce 0.5s ease-out;
+}
+
+@keyframes tooltipBounce {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Animated Background Shapes */
+.bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: shapeFloat 20s ease-in-out infinite;
+}
+
+.bg-shape-1 {
+  width: 300px;
+  height: 300px;
+  background: #667eea;
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.bg-shape-2 {
+  width: 200px;
+  height: 200px;
+  background: #f093fb;
+  top: 60%;
+  right: 10%;
+  animation-delay: 5s;
+}
+
+.bg-shape-3 {
+  width: 250px;
+  height: 250px;
+  background: #764ba2;
+  bottom: 10%;
+  left: 50%;
+  animation-delay: 10s;
+}
+
+@keyframes shapeFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(50px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-50px, 50px) scale(0.9);
+  }
+}
+
+/* Success Animation */
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 3;
+  stroke: #4caf50;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #4caf50;
+  animation: fillGreen 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+}
+
+@keyframes fillGreen {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #4caf50;
+  }
+}
+
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+/* Neon Text Glow */
+.neon-text {
+  animation: neonTextGlow 2s ease-in-out infinite;
+}
+
+@keyframes neonTextGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(102,126,234,0.5), 0 0 20px rgba(102,126,234,0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(102,126,234,0.8), 0 0 40px rgba(102,126,234,0.6), 0 0 60px rgba(102,126,234,0.4);
+  }
+}
+
+/* Icon Glow */
+.icon-glow {
+  filter: drop-shadow(0 0 10px rgba(102,126,234,0.5));
+  animation: iconGlowPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconGlowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(102,126,234,0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 25px rgba(102,126,234,0.9)) drop-shadow(0 0 40px rgba(102,126,234,0.6));
+  }
+}
+
+/* Card Intense Glow on Hover */
+.card-intense-glow {
+  transition: all 0.4s ease;
+}
+
+.card-intense-glow:hover {
+  box-shadow: 0 0 40px rgba(102,126,234,0.6), 0 0 80px rgba(102,126,234,0.4), 0 0 120px rgba(102,126,234,0.2) !important;
+  transform: translateY(-15px) scale(1.05) !important;
+}
+
+/* Sparkle Animation */
+.sparkle-effect {
+  position: relative;
+}
+
+.sparkle-effect::after {
+  content: '✨';
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  font-size: 1.5rem;
+  animation: sparkleFloat 3s ease-in-out infinite;
+}
+
+@keyframes sparkleFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateY(-10px) rotate(90deg) scale(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-5px) rotate(180deg) scale(0.9);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-12px) rotate(270deg) scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* Pulsing Ring Effect */
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  border: 3px solid rgba(102,126,234,0.6);
+  animation: pulseRing 2s ease-out infinite;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Glowing Border Animation */
+.glow-border {
+  position: relative;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #667eea, #764ba2, #f093fb) border-box;
+  animation: borderGlow 3s linear infinite;
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(102,126,234,0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(102,126,234,0.9)) drop-shadow(0 0 50px rgba(102,126,234,0.5));
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .motivation-box,
+  .tips-card,
+  .success-story {
+    padding: 16px;
+    margin: 15px 0;
+  }
+
+  .motivation-text {
+    font-size: 1rem;
+  }
+
+  .tips-title {
+    font-size: 1.2rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  /* Reduce glow intensity on mobile for performance */
+  .glow-button,
+  .motivation-box,
+  .tips-card,
+  .success-story,
+  .points-badge,
+  .stat-card,
+  .achievement-badge {
+    animation-duration: 3s;
+  }
+}

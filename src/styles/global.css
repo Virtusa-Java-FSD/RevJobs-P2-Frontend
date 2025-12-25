@@ -1,0 +1,42 @@
+/* Naukri-style layout */
+html, body, #root {
+  background-color: #f8f9fa !important;
+  color: #333333 !important;
+}
+
+/* Light gray background for content areas */
+.MuiBox-root, .MuiContainer-root {
+  background-color: #f8f9fa !important;
+}
+
+/* White cards with borders */
+.MuiPaper-root, .MuiCard-root, .MuiDialog-paper {
+  background-color: #ffffff !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+/* Blue header */
+.MuiAppBar-root {
+  background-color: #4285f4 !important;
+}
+
+.MuiAppBar-root * {
+  color: #ffffff !important;
+}
+
+/* Dark text */
+h1, h2, h3, h4, h5, h6, p, span, div, .MuiTypography-root {
+  color: #333333 !important;
+}
+
+/* Blue buttons */
+.MuiButton-contained {
+  background-color: #4285f4 !important;
+  color: #ffffff !important;
+}
+
+.MuiButton-outlined {
+  border-color: #4285f4 !important;
+  color: #4285f4 !important;
+}

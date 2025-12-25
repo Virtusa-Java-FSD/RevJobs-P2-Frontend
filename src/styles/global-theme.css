@@ -1,0 +1,212 @@
+/* Enhanced Global Theme for All Pages */
+
+/* Additional Color Gradients */
+.gradient-orange {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.gradient-green {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+}
+
+.gradient-blue {
+  background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+}
+
+/* Page Header with Animation */
+.page-header-animated {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 80px 20px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header-animated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.page-header-animated > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Card with Hover Effect */
+.card-hover-lift {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+}
+
+/* Icon with Rotation on Hover */
+.icon-rotate-hover {
+  transition: all 0.3s ease;
+}
+
+.icon-rotate-hover:hover {
+  transform: rotate(360deg);
+}
+
+/* Button with Ripple Effect */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-ripple:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Gradient Text */
+.text-gradient-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Status Chips */
+.chip-success {
+  background: linear-gradient(135deg, #55efc4 0%, #00b894 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.chip-warning {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%) !important;
+  color: #2d3436 !important;
+  font-weight: 600 !important;
+}
+
+.chip-error {
+  background: linear-gradient(135deg, #ff7675 0%, #d63031 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.chip-info {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+/* Floating Animation for Stats */
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+.float-animation-delay-1 {
+  animation: float 3s ease-in-out infinite 0.5s;
+}
+
+.float-animation-delay-2 {
+  animation: float 3s ease-in-out infinite 1s;
+}
+
+/* Slide Up Animation */
+.slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+.slide-up-delay-1 {
+  animation: slideUp 0.8s ease-out 0.2s backwards;
+}
+
+.slide-up-delay-2 {
+  animation: slideUp 0.8s ease-out 0.4s backwards;
+}
+
+/* Icon Circle with Glow */
+.icon-circle-glow {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+  transition: all 0.3s ease;
+}
+
+.icon-circle-glow:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 0 30px rgba(102, 126, 234, 0.9);
+}
+
+/* Search Bar Enhanced */
+.search-bar-enhanced {
+  background: white;
+  border-radius: 50px;
+  padding: 8px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.search-bar-enhanced:focus-within {
+  box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+  transform: scale(1.02);
+}
+
+/* Job Card Featured */
+.job-card-featured {
+  border-left: 4px solid #667eea;
+  background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(255,255,255,1) 100%);
+}
+
+/* Company Logo Circle */
+.company-logo-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Section Divider */
+.section-divider {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #667eea, transparent);
+  margin: 40px 0;
+}
+
+/* Animated Background */
+.animated-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 20s ease infinite;
+}
+
+/* White Section */
+.section-white {
+  background: #ffffff;
+  padding: 60px 20px;
+}
+
+/* Light Section */
+.section-light {
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  padding: 60px 20px;
+}

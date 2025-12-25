@@ -1,0 +1,663 @@
+/* ============================================
+   ADVANCED ANIMATIONS FOR ALL PAGES
+   ============================================ */
+
+/* Gradient Backgrounds with Animation */
+.hero-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+  color: white;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Auth Pages - Login & Register */
+.auth-page {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: 400% 400%;
+  animation: gradientMove 20s ease infinite;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-page::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  top: -250px;
+  right: -250px;
+  animation: float 20s ease-in-out infinite;
+}
+
+.auth-page::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  bottom: -200px;
+  left: -200px;
+  animation: float 15s ease-in-out infinite reverse;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.auth-container {
+  border-radius: 24px !important;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.3) !important;
+  animation: slideUp 0.8s ease-out, fadeIn 0.8s ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-30px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(15px) rotate(-5deg);
+  }
+}
+
+/* Search Card Animation */
+.search-card {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 20px !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: scaleIn 0.6s ease-out;
+}
+
+.search-card:hover {
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px) scale(1.02);
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Card Hover Effects - Enhanced */
+.MuiCard-root {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.MuiCard-root:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 0 40px rgba(102,126,234,0.4), 0 0 80px rgba(102,126,234,0.2) !important;
+  filter: brightness(1.05);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Animations - Enhanced */
+.MuiButton-contained {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(102,126,234,0.3);
+  animation: buttonGlow 2s ease-in-out infinite;
+}
+
+.MuiButton-contained::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.MuiButton-contained:hover::before {
+  width: 400px;
+  height: 400px;
+}
+
+.MuiButton-contained:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(102,126,234,0.6), 0 0 70px rgba(102,126,234,0.4);
+}
+
+@keyframes buttonGlow {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(102,126,234,0.3);
+  }
+  50% {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 35px rgba(102,126,234,0.5);
+  }
+}
+
+/* Chip Animations */
+.MuiChip-root {
+  transition: all 0.3s ease;
+  animation: popIn 0.4s ease-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 15px rgba(102,126,234,0.2);
+}
+
+.MuiChip-root:hover {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 30px rgba(102,126,234,0.5), 0 0 50px rgba(102,126,234,0.3);
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Typography Animations */
+.MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3, .MuiTypography-h4 {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Table Row Animations */
+.MuiTableRow-root {
+  animation: fadeIn 0.5s ease-out;
+  transition: all 0.3s ease;
+}
+
+.MuiTableRow-root:hover {
+  background-color: rgba(25, 118, 210, 0.08) !important;
+  transform: scale(1.01);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Avatar Pulse Animation */
+.MuiAvatar-root {
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(102,126,234,0.3);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7), 0 0 20px rgba(102,126,234,0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(102, 126, 234, 0), 0 0 40px rgba(102,126,234,0.6);
+  }
+}
+
+/* Loading Spinner Enhancement */
+.MuiCircularProgress-root {
+  animation: spin 1s linear infinite, colorChange 3s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes colorChange {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(180deg); }
+}
+
+/* Alert Animations */
+.MuiAlert-root {
+  animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* TextField Focus Animation */
+.MuiTextField-root {
+  transition: all 0.3s ease;
+}
+
+.MuiTextField-root:focus-within {
+  transform: scale(1.02);
+}
+
+.MuiOutlinedInput-root:focus-within {
+  box-shadow: 0 0 30px rgba(102, 126, 234, 0.5), 0 0 50px rgba(102, 126, 234, 0.3);
+  animation: inputGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes inputGlow {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(102, 126, 234, 0.5), 0 0 50px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(102, 126, 234, 0.7), 0 0 70px rgba(102, 126, 234, 0.5);
+  }
+}
+
+/* Dashboard Stats Cards */
+.MuiGrid-item {
+  animation: zoomIn 0.6s ease-out;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Gradient Text Animation */
+.gradient-text {
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientText 5s ease infinite;
+}
+
+@keyframes gradientText {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Shimmer Loading Effect */
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Bounce Animation for Icons */
+.MuiSvgIcon-root {
+  transition: all 0.3s ease;
+}
+
+.MuiIconButton-root:hover .MuiSvgIcon-root {
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-10px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(-5px); }
+}
+
+/* Glow Effect */
+.glow {
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.5), 0 0 40px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(102, 126, 234, 0.9), 0 0 80px rgba(102, 126, 234, 0.6), 0 0 120px rgba(102, 126, 234, 0.3);
+  }
+}
+
+/* Intense Glow Effect */
+.glow-intense {
+  animation: glowIntense 1.5s ease-in-out infinite;
+}
+
+@keyframes glowIntense {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(102, 126, 234, 0.6), 0 0 60px rgba(102, 126, 234, 0.4), 0 0 90px rgba(102, 126, 234, 0.2);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(102, 126, 234, 1), 0 0 100px rgba(102, 126, 234, 0.8), 0 0 150px rgba(102, 126, 234, 0.5);
+    filter: brightness(1.2);
+  }
+}
+
+/* Shake Animation for Errors */
+.shake {
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* Rotate Animation */
+.rotate {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Slide In Bottom */
+@keyframes slideInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in-bottom {
+  animation: slideInBottom 0.6s ease-out;
+}
+
+/* Flip Animation */
+@keyframes flip {
+  from {
+    transform: perspective(400px) rotateY(0);
+  }
+  to {
+    transform: perspective(400px) rotateY(360deg);
+  }
+}
+
+.flip {
+  animation: flip 1s ease;
+}
+
+/* Heartbeat Animation */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(0.9); }
+  20%, 40% { transform: scale(1.1); }
+}
+
+.heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* Notification Badge Pulse */
+.MuiBadge-badge {
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Page Transition */
+.page-transition {
+  animation: pageSlide 0.5s ease-out;
+}
+
+@keyframes pageSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #f1f1f1 0%, #e0e0e0 100%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #888 0%, #555 100%);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #555 0%, #333 100%);
+}
+
+/* Stagger Animation for Lists */
+.MuiList-root > * {
+  animation: staggerFadeIn 0.5s ease-out backwards;
+}
+
+.MuiList-root > *:nth-child(1) { animation-delay: 0.1s; }
+.MuiList-root > *:nth-child(2) { animation-delay: 0.2s; }
+.MuiList-root > *:nth-child(3) { animation-delay: 0.3s; }
+.MuiList-root > *:nth-child(4) { animation-delay: 0.4s; }
+.MuiList-root > *:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes staggerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Confetti Effect for Success */
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Ripple Effect */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Background Particles Animation */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: particleFloat 20s infinite;
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Neon Glow Effect */
+.neon-glow {
+  text-shadow: 
+    0 0 10px rgba(102, 126, 234, 0.8),
+    0 0 20px rgba(102, 126, 234, 0.6),
+    0 0 30px rgba(102, 126, 234, 0.4);
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 10px rgba(102, 126, 234, 0.8),
+      0 0 20px rgba(102, 126, 234, 0.6),
+      0 0 30px rgba(102, 126, 234, 0.4),
+      0 0 50px rgba(102, 126, 234, 0.2);
+  }
+  50% {
+    text-shadow: 
+      0 0 20px rgba(102, 126, 234, 1),
+      0 0 40px rgba(102, 126, 234, 0.9),
+      0 0 60px rgba(102, 126, 234, 0.7),
+      0 0 100px rgba(102, 126, 234, 0.4);
+  }
+}
+
+/* Rainbow Glow Effect */
+.rainbow-glow {
+  animation: rainbowGlow 3s linear infinite;
+}
+
+@keyframes rainbowGlow {
+  0% {
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), 0 0 60px rgba(255, 0, 0, 0.4);
+  }
+  16% {
+    box-shadow: 0 0 30px rgba(255, 165, 0, 0.6), 0 0 60px rgba(255, 165, 0, 0.4);
+  }
+  33% {
+    box-shadow: 0 0 30px rgba(255, 255, 0, 0.6), 0 0 60px rgba(255, 255, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.6), 0 0 60px rgba(0, 255, 0, 0.4);
+  }
+  66% {
+    box-shadow: 0 0 30px rgba(0, 0, 255, 0.6), 0 0 60px rgba(0, 0, 255, 0.4);
+  }
+  83% {
+    box-shadow: 0 0 30px rgba(75, 0, 130, 0.6), 0 0 60px rgba(75, 0, 130, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(238, 130, 238, 0.6), 0 0 60px rgba(238, 130, 238, 0.4);
+  }
+}
+
+/* Success Checkmark Animation */
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.checkmark {
+  animation: checkmark 0.5s ease-out forwards;
+}
