@@ -64,7 +64,7 @@ pipeline {
                         ssh -i $keyPath -o StrictHostKeyChecking=no $remote "rm -rf $tempDir"
                         
                         # Upload
-                        scp -i $keyPath -o StrictHostKeyChecking=no -r dist "$remote:$tempDir"
+                        scp -i $keyPath -o StrictHostKeyChecking=no -r dist "${remote}:${tempDir}"
                         
                         # Move to final destination using sudo
                         ssh -i $keyPath -o StrictHostKeyChecking=no $remote "sudo rm -rf $targetDir/* && sudo cp -r $tempDir/* $targetDir/ && rm -rf $tempDir"
