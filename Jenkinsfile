@@ -38,12 +38,37 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'SSH_KEY')]) {
-                     // 1. Clear old files
-                     // Added BatchMode=yes to fail instead of hang if auth fails. Added -v for debug.
-                     bat "ssh -o StrictHostKeyChecking=no -o BatchMode=yes -v -i \"${SSH_KEY}\" ${REMOTE_USER}@${REMOTE_HOST} \"sudo rm -rf ${REMOTE_DIR}/*\""
-                     
-                     // 2. Upload new build (using scp)
-                     bat "scp -o StrictHostKeyChecking=no -o BatchMode=yes -v -i \"${SSH_KEY}\" -r dist/* ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/"
+                    powershell '''
+                        $ErrorActionPreference = "Stop"
+                        
+                        # 1. Fix Key Permissions (Critical for Windows Agents)
+                        $keyPath = $env:SSH_KEY
+                        $acl = Get-Acl $keyPath
+                        $acl.SetAccessRuleProtection($true, $false)
+                        $currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+                        $rule = New-Object System.Security.AccessControl.FileSystemAccessRule($currentUser, "FullControl", "Allow")
+                        $acl.SetAccessRule($rule)
+                        Set-Acl $keyPath $acl
+
+                        # 2. Deployment
+                        $remote = "$env:REMOTE_USER@$env:REMOTE_HOST"
+                        $targetDir = $env:REMOTE_DIR
+                        
+                        Write-Host "Deploying to $remote..."
+                        
+                        # Upload dist folder to home directory first (avoids permission issues with /usr/share/nginx)
+                        # We upload 'dist' to a temp folder name
+                        $tempDir = "frontend_temp_deploy"
+                        
+                        # Remove stale temp dir if exists
+                        ssh -i $keyPath -o StrictHostKeyChecking=no $remote "rm -rf $tempDir"
+                        
+                        # Upload
+                        scp -i $keyPath -o StrictHostKeyChecking=no -r dist "$remote:$tempDir"
+                        
+                        # Move to final destination using sudo
+                        ssh -i $keyPath -o StrictHostKeyChecking=no $remote "sudo rm -rf $targetDir/* && sudo cp -r $tempDir/* $targetDir/ && rm -rf $tempDir"
+                    '''
                 }
             }
         }
