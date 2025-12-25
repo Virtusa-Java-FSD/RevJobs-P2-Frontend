@@ -121,6 +121,15 @@ const RecruiterDashboard: React.FC = () => {
         }
     };
 
+    const commonChipSx = {
+        '&:hover': {
+            color: '#ffffff !important',
+            '& .MuiChip-label': {
+                color: '#ffffff !important'
+            }
+        }
+    };
+
     const handleRefresh = () => {
         fetchData();
     };
@@ -401,15 +410,7 @@ const RecruiterDashboard: React.FC = () => {
                                                         label={application.status || 'PENDING'}
                                                         color={getStatusColor(application.status) as any}
                                                         size="small"
-                                                        sx={{
-                                                            fontWeight: 'bold',
-                                                            '&:hover': {
-                                                                color: '#ffffff !important',
-                                                                '& .MuiChip-label': {
-                                                                    color: '#ffffff !important'
-                                                                }
-                                                            }
-                                                        }}
+                                                        sx={commonChipSx}
                                                     />
                                                 </TableCell>
                                                 <TableCell>
