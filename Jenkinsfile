@@ -61,13 +61,14 @@ pipeline {
                         $tempDir = "frontend_temp_deploy"
                         
                         # Remove stale temp dir if exists
-                        ssh -i $keyPath -o StrictHostKeyChecking=no $remote "rm -rf $tempDir"
+                        # Added -v for debugging, BatchMode=yes to fail instead of hang on password prompt, ConnectTimeout=10
+                        ssh -v -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "rm -rf $tempDir"
                         
                         # Upload
-                        scp -i $keyPath -o StrictHostKeyChecking=no -r dist "${remote}:${tempDir}"
+                        scp -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 -r dist "${remote}:${tempDir}"
                         
                         # Move to final destination using sudo
-                        ssh -i $keyPath -o StrictHostKeyChecking=no $remote "sudo rm -rf $targetDir/* && sudo cp -r $tempDir/* $targetDir/ && rm -rf $tempDir"
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "sudo rm -rf $targetDir/* && sudo cp -r $tempDir/* $targetDir/ && rm -rf $tempDir"
                     '''
                 }
             }
