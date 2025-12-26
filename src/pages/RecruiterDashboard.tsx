@@ -121,33 +121,17 @@ const RecruiterDashboard: React.FC = () => {
         }
     };
 
-    const getChipStyles = (status: string) => {
-        const baseColors: Record<string, { bg: string; text: string }> = {
-            'PENDING': { bg: '#0288d1', text: '#ffffff' },
-            'REVIEWED': { bg: '#ed6c02', text: '#ffffff' },
-            'SHORTLISTED': { bg: '#2e7d32', text: '#ffffff' },
-            'REJECTED': { bg: '#d32f2f', text: '#ffffff' },
-            'ACCEPTED': { bg: '#2e7d32', text: '#ffffff' },
-        };
 
-        const colors = baseColors[status?.toUpperCase()] || { bg: '#757575', text: '#ffffff' };
-
-        return {
-            backgroundColor: colors.bg,
-            color: colors.text,
-            cursor: 'pointer',
+    // Common styles for Chips to force white text on hover
+    const commonChipSx = {
+        '&:hover': {
+            color: '#ffffff !important',
             '& .MuiChip-label': {
-                color: colors.text
-            },
-            '&:hover': {
-                backgroundColor: '#000000 !important',
-                color: '#ffffff !important',
-                '& .MuiChip-label': {
-                    color: '#ffffff !important'
-                }
+                color: '#ffffff !important'
             }
-        };
+        }
     };
+
 
     const handleRefresh = () => {
         fetchData();
