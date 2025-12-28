@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        githubPush()
+    }
+
     environment {
         // We read the EC2 IP from a Global Variable named 'EC2_INFRA_IP' which you will set in Jenkins
         REMOTE_HOST = "${env.EC2_INFRA_IP}" 
