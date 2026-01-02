@@ -253,26 +253,19 @@ const Companies: React.FC = () => {
                         Currently hiring for {company.openJobs} position{company.openJobs > 1 ? 's' : ''}
                       </Typography>
 
-                      <Box mb={3}>
-                        <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
-                          Recent Openings:
-                        </Typography>
-                        {company.jobs.slice(0, 3).map((job: any, idx: number) => (
-                          <Chip
-                            key={idx}
-                            label={job.title}
-                            size="small"
-                            sx={{ mr: 1, mb: 1 }}
-                            variant="outlined"
-                          />
-                        ))}
-                      </Box>
-
                       <Box display="flex" justifyContent="space-between" alignItems="center">
                         <Chip
                           label={`${company.openJobs} Open Job${company.openJobs > 1 ? 's' : ''}`}
                           color="primary"
                           variant="filled"
+                          sx={{
+                            backgroundColor: '#1976d2 !important',
+                            color: '#ffffff !important',
+                            fontWeight: 600,
+                            '& .MuiChip-label': {
+                              color: '#ffffff !important'
+                            }
+                          }}
                         />
                         <Button
                           variant="contained"

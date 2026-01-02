@@ -153,10 +153,29 @@ const Applications: React.FC = () => {
     }
   };
 
-  // Common styles for Chips to force white text on hover
+  // Common styles for Chips to force white text on hover and proper background
   const commonChipSx = {
+    fontWeight: 600,
+    '&.MuiChip-colorInfo': {
+      backgroundColor: '#0288d1 !important',
+      color: '#ffffff !important'
+    },
+    '&.MuiChip-colorSuccess': {
+      backgroundColor: '#2e7d32 !important',
+      color: '#ffffff !important'
+    },
+    '&.MuiChip-colorError': {
+      backgroundColor: '#d32f2f !important',
+      color: '#ffffff !important'
+    },
+    '&.MuiChip-colorWarning': {
+      backgroundColor: '#ed6c02 !important',
+      color: '#ffffff !important'
+    },
+    '& .MuiChip-label': {
+      color: '#ffffff !important'
+    },
     '&:hover': {
-      color: '#ffffff !important',
       '& .MuiChip-label': {
         color: '#ffffff !important'
       }
@@ -338,7 +357,7 @@ const Applications: React.FC = () => {
                             </Typography>
                             {application.status === 'SHORTLISTED' && (
                               <Chip
-                                label="✅ Shortlisted by Recruiter"
+                                label="Shortlisted by Recruiter"
                                 size="small"
                                 color="success"
                                 sx={{
@@ -349,7 +368,7 @@ const Applications: React.FC = () => {
                             )}
                             {application.status === 'REJECTED' && (
                               <Chip
-                                label="❌ Rejected by Recruiter"
+                                label="Rejected by Recruiter"
                                 size="small"
                                 color="error"
                                 sx={{

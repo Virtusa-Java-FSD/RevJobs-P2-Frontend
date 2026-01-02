@@ -18,10 +18,56 @@ const CreateJob: React.FC = () => {
   const [requirements, setRequirements] = useState<string[]>([]);
   const [newRequirement, setNewRequirement] = useState('');
   const [loading, setLoading] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({
+    salaryMin: '',
+    salaryMax: '',
+    salaryRange: ''
+  });
   const navigate = useNavigate();
 
   const handleChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+
+    // Real-time salary validation
+    if (field === 'salaryMin' || field === 'salaryMax') {
+      validateSalary(field, value);
+    }
+  };
+
+  const validateSalary = (field: string, value: string) => {
+    const newErrors = { ...validationErrors };
+    const minSalary = field === 'salaryMin' ? parseInt(value) : parseInt(formData.salaryMin);
+    const maxSalary = field === 'salaryMax' ? parseInt(value) : parseInt(formData.salaryMax);
+
+    // Validate individual fields
+    if (field === 'salaryMin') {
+      if (value && parseInt(value) <= 0) {
+        newErrors.salaryMin = 'Must be greater than 0';
+      } else {
+        newErrors.salaryMin = '';
+      }
+    }
+
+    if (field === 'salaryMax') {
+      if (value && parseInt(value) <= 0) {
+        newErrors.salaryMax = 'Must be greater than 0';
+      } else {
+        newErrors.salaryMax = '';
+      }
+    }
+
+    // Validate range
+    if (minSalary && maxSalary && !isNaN(minSalary) && !isNaN(maxSalary)) {
+      if (minSalary >= maxSalary) {
+        newErrors.salaryRange = 'Min salary must be less than max salary';
+      } else {
+        newErrors.salaryRange = '';
+      }
+    } else {
+      newErrors.salaryRange = '';
+    }
+
+    setValidationErrors(newErrors);
   };
 
   const addRequirement = () => {
@@ -44,8 +90,32 @@ const CreateJob: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.companyName || !formData.description || !formData.location) {
-      alert('Please fill in all required fields (Title, Company, Description, Location)');
+    // Validate required fields (location not required if remote)
+    if (!formData.title || !formData.companyName || !formData.description) {
+      alert('Please fill in all required fields (Title, Company, Description)');
+      return;
+    }
+
+    // Location is required only if not remote
+    if (!formData.remote && !formData.location) {
+      alert('Location is required for non-remote positions');
+      return;
+    }
+
+    // Validate deadline is not in the past
+    if (formData.applicationDeadline) {
+      const selectedDate = new Date(formData.applicationDeadline);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (selectedDate < today) {
+        alert('Application deadline cannot be in the past');
+        return;
+      }
+    }
+
+    // Validate salary fields (only block if errors exist)
+    if (validationErrors.salaryMin || validationErrors.salaryMax || validationErrors.salaryRange) {
+      alert('Please fix salary validation errors before submitting');
       return;
     }
 
@@ -69,7 +139,7 @@ const CreateJob: React.FC = () => {
       };
 
       const result = await jobAPI.createJob(jobData);
-      alert('✅ Job posted successfully! Job seekers can now see and apply.');
+      alert('Job posted successfully! Job seekers can now see and apply.');
 
       // Navigate based on role
       if (user.role === 'RECRUITER') {
@@ -79,7 +149,7 @@ const CreateJob: React.FC = () => {
       }
     } catch (error: any) {
       console.error('Error creating job:', error);
-      alert('❌ ' + (error.message || 'Failed to create job. Please ensure backend is running on port 9090.'));
+      alert(' ' + (error.message || 'Failed to create job. Please ensure backend is running on port 9090.'));
     } finally {
       setLoading(false);
     }
@@ -161,7 +231,10 @@ const CreateJob: React.FC = () => {
                 value={formData.location}
                 onChange={(e) => handleChange('location', e.target.value)}
                 margin="normal"
-                required
+                required={!formData.remote}
+                disabled={formData.remote}
+                placeholder={formData.remote ? "Not required for remote positions" : "e.g., San Francisco, CA"}
+                helperText={formData.remote ? "Location not required for remote positions" : ""}
               />
 
               <FormControlLabel
@@ -196,6 +269,9 @@ const CreateJob: React.FC = () => {
                   onChange={(e) => handleChange('salaryMin', e.target.value)}
                   margin="normal"
                   sx={{ flex: 1 }}
+                  error={!!validationErrors.salaryMin || !!validationErrors.salaryRange}
+                  helperText={validationErrors.salaryMin || validationErrors.salaryRange}
+                  inputProps={{ min: 1 }}
                 />
                 <TextField
                   label="Maximum Salary"
@@ -204,6 +280,9 @@ const CreateJob: React.FC = () => {
                   onChange={(e) => handleChange('salaryMax', e.target.value)}
                   margin="normal"
                   sx={{ flex: 1 }}
+                  error={!!validationErrors.salaryMax}
+                  helperText={validationErrors.salaryMax}
+                  inputProps={{ min: 1 }}
                 />
               </Box>
 
@@ -215,6 +294,10 @@ const CreateJob: React.FC = () => {
                 onChange={(e) => handleChange('applicationDeadline', e.target.value)}
                 margin="normal"
                 InputLabelProps={{ shrink: true }}
+                inputProps={{
+                  min: new Date().toISOString().split('T')[0]
+                }}
+                helperText="Deadline must be today or in the future"
               />
 
               <Box mt={3}>
@@ -252,7 +335,7 @@ const CreateJob: React.FC = () => {
                   size="large"
                   sx={{ bgcolor: '#3b82f6', '&:hover': { bgcolor: '#1e40af' } }}
                 >
-                  {loading ? '🔄 Posting...' : '🚀 Post Job'}
+                  {loading ? 'Posting...' : 'Post Job'}
                 </Button>
                 <Button
                   variant="outlined"

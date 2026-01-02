@@ -18,14 +18,14 @@ const Careers: React.FC = () => {
 
   useEffect(() => {
     fetchJobs();
-    
+
     // Real-time updates
     const handleJobCreated = () => fetchJobs();
     window.addEventListener('jobCreated', handleJobCreated);
-    
+
     // Auto-refresh every 10 seconds for real-time updates
     const interval = setInterval(fetchJobs, 10000);
-    
+
     return () => {
       window.removeEventListener('jobCreated', handleJobCreated);
       clearInterval(interval);
@@ -65,7 +65,7 @@ const Careers: React.FC = () => {
     };
     applications.push(newApplication);
     localStorage.setItem('careerApplications', JSON.stringify(applications));
-    
+
     setApplicationSubmitted(true);
     setTimeout(() => {
       setApplyDialogOpen(false);
@@ -93,32 +93,32 @@ const Careers: React.FC = () => {
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#f8fafc' }}>
       {/* Professional Header */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           background: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%)',
           py: 4,
           mb: 4
         }}
       >
         <Box sx={{ maxWidth: 1200, mx: 'auto', px: 3 }}>
-          <Typography 
-            variant="h3" 
-            align="center" 
-            gutterBottom 
-            sx={{ 
-              fontWeight: 700, 
+          <Typography
+            variant="h3"
+            align="center"
+            gutterBottom
+            sx={{
+              fontWeight: 700,
               color: 'white',
               mb: 2
             }}
           >
             Career Opportunities
           </Typography>
-          <Typography 
-            variant="h6" 
-            align="center" 
-            sx={{ 
-              maxWidth: 800, 
-              mx: 'auto', 
+          <Typography
+            variant="h6"
+            align="center"
+            sx={{
+              maxWidth: 800,
+              mx: 'auto',
               color: 'rgba(255,255,255,0.9)',
               fontWeight: 400
             }}
@@ -136,7 +136,7 @@ const Careers: React.FC = () => {
         <Typography variant="body1" align="center" sx={{ mb: 6, color: '#757575' }}>
           Sorted by posting date (newest first)
         </Typography>
-        
+
         {loading ? (
           <Box display="flex" flexDirection="column" alignItems="center" py={8}>
             <CircularProgress sx={{ mb: 2 }} />
@@ -150,9 +150,9 @@ const Careers: React.FC = () => {
           <Grid container spacing={3}>
             {jobs.map((job) => (
               <Grid item xs={12} md={4} key={job.id}>
-                <Card sx={{ 
-                  height: '100%', 
-                  backgroundColor: '#ffffff', 
+                <Card sx={{
+                  height: '100%',
+                  backgroundColor: '#ffffff',
                   borderRadius: 3,
                   boxShadow: 3,
                   transition: 'all 0.2s ease-in-out',
@@ -175,7 +175,7 @@ const Careers: React.FC = () => {
                         </Typography>
                       </Box>
                     </Box>
-                    
+
                     <Box display="flex" alignItems="center" gap={2} mb={2} flexWrap="wrap">
                       <Box display="flex" alignItems="center" gap={0.5}>
                         <LocationOn fontSize="small" sx={{ color: '#757575' }} />
@@ -184,7 +184,17 @@ const Careers: React.FC = () => {
                         </Typography>
                       </Box>
                       {job.remote && (
-                        <Chip label="Remote" size="small" color="success" />
+                        <Chip
+                          label="Remote"
+                          size="small"
+                          color="success"
+                          sx={{
+                            color: '#212121',
+                            '&:hover': {
+                              color: 'white'
+                            }
+                          }}
+                        />
                       )}
                       <Box display="flex" alignItems="center" gap={0.5}>
                         <Schedule fontSize="small" sx={{ color: '#757575' }} />
@@ -208,8 +218,8 @@ const Careers: React.FC = () => {
                       Posted: {job.postedDate ? new Date(job.postedDate).toLocaleDateString() : 'Recently'}
                     </Typography>
 
-                    <Button 
-                      variant="contained" 
+                    <Button
+                      variant="contained"
                       fullWidth
                       onClick={() => handleApply(job)}
                     >
@@ -231,11 +241,11 @@ const Careers: React.FC = () => {
         <Grid container spacing={3}>
           {benefits.map((benefit, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card sx={{ 
-                textAlign: 'center', 
-                p: 3, 
-                height: '100%', 
-                backgroundColor: '#ffffff', 
+              <Card sx={{
+                textAlign: 'center',
+                p: 3,
+                height: '100%',
+                backgroundColor: '#ffffff',
                 borderRadius: 3,
                 transition: 'all 0.2s ease-in-out',
                 '&:hover': {
@@ -321,9 +331,9 @@ const Careers: React.FC = () => {
         {!applicationSubmitted && (
           <DialogActions>
             <Button onClick={() => setApplyDialogOpen(false)}>Cancel</Button>
-            <Button 
-              onClick={handleSubmitApplication} 
-              variant="contained" 
+            <Button
+              onClick={handleSubmitApplication}
+              variant="contained"
               startIcon={<Send />}
               disabled={!applicationData.name || !applicationData.email}
             >

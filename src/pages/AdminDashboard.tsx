@@ -194,14 +194,14 @@ const AdminDashboard: React.FC = () => {
       });
 
       if (response.ok) {
-        alert('✅ Job deleted successfully!');
+        alert('Job deleted successfully!');
         fetchAllData();
       } else {
-        alert('❌ Failed to delete job');
+        alert('Failed to delete job');
       }
     } catch (error) {
       console.error('Error deleting job:', error);
-      alert('❌ Error deleting job');
+      alert('Error deleting job');
     }
     setDeleteDialogOpen(false);
   };
@@ -210,7 +210,7 @@ const AdminDashboard: React.FC = () => {
     const updatedUsers = users.filter((u: any) => u.id !== userId);
     localStorage.setItem('registeredUsers', JSON.stringify(updatedUsers.map((u: any) => ({ firstName: u.firstName, lastName: u.lastName, email: u.email, role: u.role, companyName: u.companyName }))));
     setUsers(updatedUsers);
-    alert('✅ User deleted successfully!');
+    alert('User deleted successfully!');
     setDeleteDialogOpen(false);
   };
 
@@ -307,10 +307,10 @@ const AdminDashboard: React.FC = () => {
         });
 
         if (response.ok) {
-          alert('✅ Job updated successfully!');
+          alert('Job updated successfully!');
           fetchAllData();
         } else {
-          alert('❌ Failed to update job');
+          alert('Failed to update job');
         }
       } else if (editFormData.type === 'user') {
         // Update user in localStorage
@@ -321,12 +321,12 @@ const AdminDashboard: React.FC = () => {
             : user
         );
         localStorage.setItem('registeredUsers', JSON.stringify(updatedUsers));
-        alert('✅ User updated successfully!');
+        alert('User updated successfully!');
         fetchAllData();
       }
     } catch (error) {
       console.error('Error updating:', error);
-      alert('❌ Error updating item');
+      alert('Error updating item');
     }
     setEditDialogOpen(false);
   };
@@ -342,7 +342,7 @@ const AdminDashboard: React.FC = () => {
       }}>
         <Box sx={{ position: 'relative', zIndex: 1 }}>
           <Typography variant="h3" sx={{ fontWeight: 800, mb: 2 }}>
-            🛡️ Admin Control Center
+            Admin Control Center
           </Typography>
           <Typography variant="h6" sx={{ opacity: 0.9, mb: 3 }}>
             Complete system management and analytics • Real-time monitoring
@@ -391,10 +391,10 @@ const AdminDashboard: React.FC = () => {
         <Card className="revjobs-card" sx={{ borderRadius: 3 }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tabValue} onChange={handleTabChange} variant="scrollable">
-              <Tab label="📊 Overview" />
-              <Tab label="💼 Jobs Management" />
-              <Tab label="👥 Users Management" />
-              <Tab label="📋 Applications" />
+              <Tab label="Overview" />
+              <Tab label="Jobs Management" />
+              <Tab label="Users Management" />
+              <Tab label="Applications" />
               <Tab label="📈 Analytics" />
             </Tabs>
           </Box>
@@ -612,8 +612,15 @@ const AdminDashboard: React.FC = () => {
                           <TableCell>
                             <Chip
                               label={job.status || 'ACTIVE'}
-                              color={job.status === 'ACTIVE' ? 'success' : 'default'}
                               size="small"
+                              sx={{
+                                backgroundColor: job.status === 'ACTIVE' ? '#2e7d32 !important' : '#757575 !important',
+                                color: '#ffffff !important',
+                                fontWeight: 600,
+                                '& .MuiChip-label': {
+                                  color: '#ffffff !important'
+                                }
+                              }}
                             />
                           </TableCell>
                           <TableCell>
@@ -733,8 +740,15 @@ const AdminDashboard: React.FC = () => {
                         <TableCell>
                           <Chip
                             label={user.status}
-                            color={user.status === 'Active' ? 'success' : 'default'}
                             size="small"
+                            sx={{
+                              backgroundColor: user.status === 'Active' ? '#2e7d32 !important' : '#757575 !important',
+                              color: '#ffffff !important',
+                              fontWeight: 600,
+                              '& .MuiChip-label': {
+                                color: '#ffffff !important'
+                              }
+                            }}
                           />
                         </TableCell>
                         <TableCell>
@@ -820,7 +834,7 @@ const AdminDashboard: React.FC = () => {
               <Grid item xs={12} md={6}>
                 <Card className="card-hover-lift" sx={{ p: 3, borderRadius: 3 }}>
                   <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                    📊 Platform Statistics
+                    Platform Statistics
                   </Typography>
                   <Box sx={{ '& > div': { mb: 2, display: 'flex', justifyContent: 'space-between' } }}>
                     <Box>
@@ -847,7 +861,7 @@ const AdminDashboard: React.FC = () => {
               <Grid item xs={12} md={6}>
                 <Card className="card-hover-lift" sx={{ p: 3, borderRadius: 3 }}>
                   <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                    🎯 Performance Metrics
+                    Performance Metrics
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Advanced analytics and reporting features would be implemented here with charts and graphs showing:

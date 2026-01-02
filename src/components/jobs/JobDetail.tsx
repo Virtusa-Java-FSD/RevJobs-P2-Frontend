@@ -4,7 +4,7 @@ import { LocationOn, Work, AttachMoney, CalendarToday, Business, Share, Bookmark
 import { useParams } from 'react-router-dom';
 
 import { Job } from '../../types';
-import { jobAPI, applicationAPI, messageAPI, API_BASE_URL } from '../../services/api';
+import { jobAPI, applicationAPI, messageAPI, savedJobAPI, API_BASE_URL } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import LoadingSpinner from '../ui/LoadingSpinner';
 
@@ -18,6 +18,7 @@ const JobDetail: React.FC = () => {
   const [uploading, setUploading] = useState(false);
   const [applying, setApplying] = useState(false);
   const [applied, setApplied] = useState(false);
+  const [saved, setSaved] = useState(false);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -146,12 +147,45 @@ const JobDetail: React.FC = () => {
         window.dispatchEvent(new CustomEvent('applicationSubmitted'));
       }, 3000);
 
-      alert('✅ Application submitted! Conversation created with recruiter. Check Applications page to track status.');
+      alert('Application submitted! Conversation created with recruiter. Check Applications page to track status.');
     } catch (error: any) {
       console.error('Error applying:', error);
-      alert('❌ ' + (error.message || 'Failed to submit application. Please try again.'));
+      alert(' ' + (error.message || 'Failed to submit application. Please try again.'));
     } finally {
       setApplying(false);
+    }
+  };
+
+  const handleShare = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      alert('Job link copied to clipboard!');
+    }).catch(() => {
+      alert('Failed to copy link');
+    });
+  };
+
+  const handleSave = async () => {
+    if (!user) {
+      alert('Please log in to save jobs');
+      return;
+    }
+
+    try {
+      if (saved) {
+        // Unsave
+        await savedJobAPI.unsaveJob(user.id, parseInt(job!.id));
+        setSaved(false);
+        alert('Job removed from saved list');
+      } else {
+        // Save
+        await savedJobAPI.saveJob(user.id, parseInt(job!.id));
+        setSaved(true);
+        alert('Job saved successfully!');
+      }
+    } catch (error) {
+      console.error('Error toggling saved status:', error);
+      alert('Failed to update saved status');
     }
   };
 
@@ -169,7 +203,19 @@ const JobDetail: React.FC = () => {
     };
 
     checkApplicationStatus();
+    checkSavedStatus();
   }, [job, user]);
+
+  const checkSavedStatus = async () => {
+    if (job && user) {
+      try {
+        const isSaved = await savedJobAPI.isSaved(user.id, parseInt(job.id));
+        setSaved(isSaved);
+      } catch (error) {
+        console.error('Error checking saved status:', error);
+      }
+    }
+  };
 
   if (loading) return <LoadingSpinner fullScreen />;
   if (!job) return (
@@ -212,11 +258,16 @@ const JobDetail: React.FC = () => {
                     </Box>
                   </Box>
                   <Box display="flex" gap={1}>
-                    <Button variant="outlined" startIcon={<Share />} size="small">
+                    <Button variant="outlined" startIcon={<Share />} size="small" onClick={handleShare}>
                       Share
                     </Button>
-                    <Button variant="outlined" startIcon={<Bookmark />} size="small">
-                      Save
+                    <Button
+                      variant={saved ? "contained" : "outlined"}
+                      startIcon={<Bookmark />}
+                      size="small"
+                      onClick={handleSave}
+                    >
+                      {saved ? 'Saved' : 'Save'}
                     </Button>
                   </Box>
                 </Box>
@@ -324,7 +375,7 @@ const JobDetail: React.FC = () => {
                       }
                     }}
                   >
-                    {applied ? '✅ Application Submitted' : '🚀 Apply Now'}
+                    {applied ? 'Application Submitted' : 'Apply Now'}
                   </Button>
                 )}
 
@@ -346,8 +397,15 @@ const JobDetail: React.FC = () => {
                     <Typography variant="body2" color="text.secondary">Status</Typography>
                     <Chip
                       label={job.status}
-                      color={job.status === 'ACTIVE' ? 'success' : 'default'}
                       size="small"
+                      sx={{
+                        backgroundColor: job.status === 'ACTIVE' ? '#2e7d32 !important' : '#757575 !important',
+                        color: '#ffffff !important',
+                        fontWeight: 600,
+                        '& .MuiChip-label': {
+                          color: '#ffffff !important'
+                        }
+                      }}
                     />
                   </Box>
                 </Box>
@@ -361,7 +419,7 @@ const JobDetail: React.FC = () => {
           <DialogTitle>Apply for {job.title}</DialogTitle>
           <DialogContent>
             <Box sx={{ mt: 2 }}>
-              <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>🔗 Resume URL</Typography>
+              <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Resume URL</Typography>
               <TextField
                 fullWidth
                 placeholder="https://drive.google.com/your-resume-link"
@@ -423,7 +481,7 @@ const JobDetail: React.FC = () => {
                 }
               }}
             >
-              {applying ? (uploading ? '⬆ Uploading...' : '🔄 Applying...') : '🚀 Submit Application'}
+              {applying ? (uploading ? 'Uploading...' : 'Applying...') : 'Submit Application'}
             </Button>
           </DialogActions>
         </Dialog>

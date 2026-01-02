@@ -261,11 +261,11 @@ export const applicationAPI = {
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.message || 'Failed to upload file');
+                throw new Error(error.error || error.message || 'Failed to upload file');
             }
 
             const result = await response.json();
-            return result.data || result; // Returns file URL
+            return result.url; // Backend returns { url: "/api/applications/files/xyz.pdf", message: "..." }
         } catch (error) {
             console.error('Error uploading resume:', error);
             throw error;
@@ -408,6 +408,76 @@ export const notificationAPI = {
             });
         } catch (error) {
             console.error('Error marking all notifications as read:', error);
+        }
+    }
+};
+
+// Saved Jobs API
+export const savedJobAPI = {
+    saveJob: async (userId: number, jobId: number) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/users/${userId}/saved-jobs/${jobId}`, {
+                method: 'POST',
+                headers: getAuthHeaders()
+            });
+            if (!response.ok) throw new Error('Failed to save job');
+            return await response.json();
+        } catch (error) {
+            console.error('Error saving job:', error);
+            throw error;
+        }
+    },
+
+    unsaveJob: async (userId: number, jobId: number) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/users/${userId}/saved-jobs/${jobId}`, {
+                method: 'DELETE',
+                headers: getAuthHeaders()
+            });
+            if (!response.ok) throw new Error('Failed to unsave job');
+        } catch (error) {
+            console.error('Error unsaving job:', error);
+            throw error;
+        }
+    },
+
+    getSavedJobs: async (userId: number) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/users/${userId}/saved-jobs`, {
+                headers: getAuthHeaders()
+            });
+            if (!response.ok) throw new Error('Failed to fetch saved jobs');
+            const savedJobs = await response.json();
+
+            // Fetch full job details for each saved job
+            const jobPromises = savedJobs.map(async (saved: any) => {
+                try {
+                    return await jobAPI.getJobById(saved.jobId.toString());
+                } catch (error) {
+                    console.error(`Failed to fetch job ${saved.jobId}:`, error);
+                    return null;
+                }
+            });
+
+            const jobs = await Promise.all(jobPromises);
+            return jobs.filter(job => job !== null);
+        } catch (error) {
+            console.error('Error fetching saved jobs:', error);
+            return [];
+        }
+    },
+
+    isSaved: async (userId: number, jobId: number) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/users/${userId}/saved-jobs/${jobId}/exists`, {
+                headers: getAuthHeaders()
+            });
+            if (!response.ok) return false;
+            const result = await response.json();
+            return result.saved || false;
+        } catch (error) {
+            console.error('Error checking if job is saved:', error);
+            return false;
         }
     }
 };

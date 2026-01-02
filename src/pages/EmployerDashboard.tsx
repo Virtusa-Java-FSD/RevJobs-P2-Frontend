@@ -14,21 +14,21 @@ const EmployerDashboard: React.FC = () => {
 
   useEffect(() => {
     fetchData();
-    
+
     // Auto-refresh every 5 seconds for faster updates
     const interval = setInterval(fetchData, 5000);
-    
+
     // Listen for job created events and application events
     const handleJobCreated = () => fetchData();
     const handleApplicationSubmitted = () => {
       console.log('Application submitted event received, refreshing...');
       setTimeout(fetchData, 1000); // Delay to ensure backend processing
     };
-    
+
     window.addEventListener('jobCreated', handleJobCreated);
     window.addEventListener('applicationSubmitted', handleApplicationSubmitted);
     window.addEventListener('applicationStatusChanged', handleApplicationSubmitted);
-    
+
     return () => {
       clearInterval(interval);
       window.removeEventListener('jobCreated', handleJobCreated);
@@ -42,7 +42,7 @@ const EmployerDashboard: React.FC = () => {
       const jobsData = await jobAPI.getJobsByRecruiter();
       console.log('Employer jobs:', jobsData);
       setJobs(jobsData);
-      
+
       // Fetch real applications for employer's jobs
       const allApplications: any[] = [];
       for (const job of jobsData) {
@@ -59,7 +59,7 @@ const EmployerDashboard: React.FC = () => {
         }
       }
       console.log('Total applications found:', allApplications);
-      
+
       // Try backend aggregator endpoint via API gateway if available, otherwise rely on per-job fetch
       try {
         const response = await fetch(`${API_BASE_URL}/applications`, {
@@ -83,14 +83,14 @@ const EmployerDashboard: React.FC = () => {
       } catch (error) {
         console.error('Gateway applications fetch failed, using per-job data only:', error);
       }
-      
+
       // Sort by date (newest first)
       const sortedApplications = allApplications.sort((a: any, b: any) => {
         const dateA = new Date(a.appliedDate || 0).getTime();
         const dateB = new Date(b.appliedDate || 0).getTime();
         return dateB - dateA;
       });
-      
+
       setApplications(sortedApplications);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -120,10 +120,10 @@ const EmployerDashboard: React.FC = () => {
         },
         body: JSON.stringify({ status: newStatus })
       });
-      
+
       if (response.ok) {
         const application = applications.find(app => app.id === applicationId);
-        
+
         // Create notification for job seeker
         if (application) {
           const notifications = JSON.parse(localStorage.getItem(`notifications_${application.applicantEmail}`) || '[]');
@@ -136,12 +136,12 @@ const EmployerDashboard: React.FC = () => {
             read: false
           });
           localStorage.setItem(`notifications_${application.applicantEmail}`, JSON.stringify(notifications));
-          
+
           // Create conversation if shortlisted
           if (newStatus === 'SHORTLISTED') {
             const conversations = JSON.parse(localStorage.getItem('conversations') || '[]');
             const conversationId = `${application.applicantEmail}_${application.companyName || 'Company'}_${applicationId}`;
-            
+
             const existingConv = conversations.find((c: any) => c.id === conversationId);
             if (!existingConv) {
               conversations.push({
@@ -154,7 +154,7 @@ const EmployerDashboard: React.FC = () => {
                 lastMessageTime: new Date().toISOString()
               });
               localStorage.setItem('conversations', JSON.stringify(conversations));
-              
+
               // Send initial message
               const initialMessage = {
                 id: Date.now().toString(),
@@ -167,21 +167,21 @@ const EmployerDashboard: React.FC = () => {
             }
           }
         }
-        
-        alert(`✅ Application ${newStatus.toLowerCase()} successfully! ${newStatus === 'SHORTLISTED' ? 'Conversation created with candidate.' : ''}`);
-        
+
+        alert(`Application ${newStatus.toLowerCase()} successfully! ${newStatus === 'SHORTLISTED' ? 'Conversation created with candidate.' : ''}`);
+
         // Trigger event for job seeker's Applications page to refresh
-        window.dispatchEvent(new CustomEvent('applicationStatusChanged', { 
-          detail: { applicationId, newStatus, applicantEmail: application?.applicantEmail } 
+        window.dispatchEvent(new CustomEvent('applicationStatusChanged', {
+          detail: { applicationId, newStatus, applicantEmail: application?.applicantEmail }
         }));
-        
+
         fetchData();
       } else {
-        alert('❌ Failed to update status');
+        alert('Failed to update status');
       }
     } catch (error) {
       console.error('Error updating status:', error);
-      alert('❌ Error updating status');
+      alert('Error updating status');
     }
   };
 
@@ -189,18 +189,18 @@ const EmployerDashboard: React.FC = () => {
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#f8fafc' }}>
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           background: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%)',
           py: 4,
           mb: 4
         }}
       >
         <Box sx={{ maxWidth: 1200, mx: 'auto', px: 3 }}>
-          <Typography 
-            variant="h3" 
-            sx={{ 
-              fontWeight: 700, 
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 700,
               color: 'white',
               textAlign: 'center',
               mb: 2
@@ -208,10 +208,10 @@ const EmployerDashboard: React.FC = () => {
           >
             Recruiter Dashboard
           </Typography>
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              color: 'rgba(255,255,255,0.9)', 
+          <Typography
+            variant="h6"
+            sx={{
+              color: 'rgba(255,255,255,0.9)',
               textAlign: 'center',
               fontWeight: 400
             }}
@@ -288,11 +288,24 @@ const EmployerDashboard: React.FC = () => {
                       <Typography variant="body2" color="text.secondary" paragraph>
                         {job.location} • {job.experienceLevel}
                       </Typography>
-                      <Box display="flex" justifyContent="between" alignItems="center">
+                      <Box display="flex" justifyContent="space-between" alignItems="center">
                         <Chip
                           label={job.status || 'ACTIVE'}
-                          color={job.status === 'ACTIVE' ? 'success' : 'default'}
                           size="small"
+                          sx={{
+                            backgroundColor: job.status === 'ACTIVE' ? '#2e7d32 !important' : '#757575 !important',
+                            color: '#ffffff !important',
+                            fontWeight: 600,
+                            border: '1px solid',
+                            borderColor: job.status === 'ACTIVE' ? '#1b5e20' : '#616161',
+                            '& .MuiChip-label': {
+                              color: '#ffffff !important',
+                              padding: '0 8px'
+                            },
+                            '&:hover': {
+                              backgroundColor: job.status === 'ACTIVE' ? '#1b5e20 !important' : '#616161 !important',
+                            }
+                          }}
                         />
                         <Button
                           size="small"

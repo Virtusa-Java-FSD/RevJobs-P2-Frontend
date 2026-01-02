@@ -220,11 +220,11 @@ const JobSeekerProfile: React.FC = () => {
     try {
       if (user?.email) {
         await userAPI.updateProfile(profile);
-        alert('✅ Profile saved successfully!');
+        alert('Profile saved successfully!');
       }
     } catch (error) {
       console.error('Error saving profile:', error);
-      alert('❌ Error saving profile');
+      alert('Error saving profile');
     } finally {
       setLoading(false);
     }

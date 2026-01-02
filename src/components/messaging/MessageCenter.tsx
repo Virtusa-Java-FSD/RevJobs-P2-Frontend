@@ -223,7 +223,19 @@ const MessageCenter: React.FC = () => {
                                                         {conversation.partnerName}
                                                     </Typography>
                                                     {conversation.unreadCount > 0 && (
-                                                        <Chip label={conversation.unreadCount} size="small" color="error" />
+                                                        <Chip
+                                                            label={conversation.unreadCount}
+                                                            size="small"
+                                                            color="error"
+                                                            sx={{
+                                                                backgroundColor: '#d32f2f !important',
+                                                                color: '#ffffff !important',
+                                                                fontWeight: 600,
+                                                                '& .MuiChip-label': {
+                                                                    color: '#ffffff !important'
+                                                                }
+                                                            }}
+                                                        />
                                                     )}
                                                 </Box>
                                             }

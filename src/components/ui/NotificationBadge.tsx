@@ -86,7 +86,17 @@ const NotificationBadge: React.FC = () => {
     return (
         <>
             <IconButton color="inherit" onClick={handleClick}>
-                <Badge badgeContent={unreadCount} color="error">
+                <Badge
+                    badgeContent={unreadCount}
+                    color="error"
+                    sx={{
+                        '& .MuiBadge-badge': {
+                            backgroundColor: '#d32f2f !important',
+                            color: '#ffffff !important',
+                            fontWeight: 600
+                        }
+                    }}
+                >
                     <Notifications />
                 </Badge>
             </IconButton>

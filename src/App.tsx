@@ -33,6 +33,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import CandidateProfile from './pages/CandidateProfile';
 import JobSeekerProfile from './components/profile/JobSeekerProfile';
 import MessageCenter from './components/messaging/MessageCenter';
+import SavedJobs from './pages/SavedJobs';
 
 
 
@@ -55,6 +56,11 @@ const AppRoutes: React.FC = () => {
         <Route path="/applications" element={
           <ProtectedRoute roles={['JOB_SEEKER']}>
             <Applications />
+          </ProtectedRoute>
+        } />
+        <Route path="/saved-jobs" element={
+          <ProtectedRoute roles={['JOB_SEEKER']}>
+            <SavedJobs />
           </ProtectedRoute>
         } />
         <Route path="/candidate/:id" element={

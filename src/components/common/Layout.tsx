@@ -80,34 +80,35 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </IconButton>
 
           {/* Desktop Navigation */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-            <Button color="inherit" onClick={() => navigate('/')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/') ? 'rgba(255,255,255,0.2)' : 'transparent' }}>Home</Button>
-            <Button color="inherit" onClick={() => navigate('/jobs')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/jobs') ? 'rgba(255,255,255,0.2)' : 'transparent' }}>Jobs</Button>
-            <Button color="inherit" onClick={() => navigate('/companies')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/companies') ? 'rgba(255,255,255,0.2)' : 'transparent' }}>Companies</Button>
-            <Button color="inherit" onClick={() => navigate('/services')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/services') ? 'rgba(255,255,255,0.2)' : 'transparent' }}>Services</Button>
-            <Button color="inherit" onClick={() => navigate('/careers')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/careers') ? 'rgba(255,255,255,0.2)' : 'transparent' }}>Careers</Button>
-            <Button color="inherit" onClick={() => navigate('/blog')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/blog') ? 'rgba(255,255,255,0.2)' : 'transparent' }}>Blog</Button>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 0.5 }}>
+            <Button color="inherit" onClick={() => navigate('/')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/') ? 'rgba(255,255,255,0.2)' : 'transparent', minWidth: 'auto', px: 1.5 }}>Home</Button>
+            <Button color="inherit" onClick={() => navigate('/jobs')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/jobs') ? 'rgba(255,255,255,0.2)' : 'transparent', minWidth: 'auto', px: 1.5 }}>Jobs</Button>
+            <Button color="inherit" onClick={() => navigate('/companies')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/companies') ? 'rgba(255,255,255,0.2)' : 'transparent', minWidth: 'auto', px: 1.5 }}>Companies</Button>
+            <Button color="inherit" onClick={() => navigate('/services')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/services') ? 'rgba(255,255,255,0.2)' : 'transparent', minWidth: 'auto', px: 1.5 }}>Services</Button>
+            <Button color="inherit" onClick={() => navigate('/careers')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/careers') ? 'rgba(255,255,255,0.2)' : 'transparent', minWidth: 'auto', px: 1.5 }}>Careers</Button>
+            <Button color="inherit" onClick={() => navigate('/blog')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/blog') ? 'rgba(255,255,255,0.2)' : 'transparent', minWidth: 'auto', px: 1.5 }}>Blog</Button>
             {user ? (
               <>
                 {user.role === 'JOB_SEEKER' && (
                   <>
-                    <Button color="inherit" onClick={() => navigate('/applications')} size="small" sx={navButtonStyle}>Applications</Button>
-                    <Button color="inherit" onClick={() => navigate('/profile')} size="small" sx={navButtonStyle}>Profile</Button>
+                    <Button color="inherit" onClick={() => navigate('/applications')} size="small" sx={{ ...navButtonStyle, minWidth: 'auto', px: 1.5 }}>Applications</Button>
+                    <Button color="inherit" onClick={() => navigate('/saved-jobs')} size="small" sx={{ ...navButtonStyle, bgcolor: isActive('/saved-jobs') ? 'rgba(255,255,255,0.2)' : 'transparent', minWidth: 'auto', px: 1.5 }}>Saved Jobs</Button>
+                    <Button color="inherit" onClick={() => navigate('/profile')} size="small" sx={{ ...navButtonStyle, minWidth: 'auto', px: 1.5 }}>Profile</Button>
                   </>
                 )}
                 {user.role === 'RECRUITER' && (
                   <>
-                    <Button color="inherit" onClick={() => navigate('/employer/dashboard')} size="small" sx={navButtonStyle}>Dashboard</Button>
-                    <Button color="inherit" onClick={() => navigate('/recruiter/dashboard')} size="small" sx={navButtonStyle}>Recruiter</Button>
-                    <Button color="inherit" onClick={() => navigate('/jobs/create')} size="small" sx={navButtonStyle}>Post Job</Button>
+                    <Button color="inherit" onClick={() => navigate('/employer/dashboard')} size="small" sx={{ ...navButtonStyle, minWidth: 'auto', px: 1.5 }}>Dashboard</Button>
+                    <Button color="inherit" onClick={() => navigate('/recruiter/dashboard')} size="small" sx={{ ...navButtonStyle, minWidth: 'auto', px: 1.5 }}>Recruiter</Button>
+                    <Button color="inherit" onClick={() => navigate('/jobs/create')} size="small" sx={{ ...navButtonStyle, minWidth: 'auto', px: 1.5 }}>Post Job</Button>
                   </>
                 )}
                 {user.role === 'ADMIN' && (
-                  <Button color="inherit" onClick={() => navigate('/admin/dashboard')} size="small" sx={navButtonStyle}>Admin</Button>
+                  <Button color="inherit" onClick={() => navigate('/admin/dashboard')} size="small" sx={{ ...navButtonStyle, minWidth: 'auto', px: 1.5 }}>Admin</Button>
                 )}
-                <Button color="inherit" onClick={() => navigate('/messages')} size="small" sx={navButtonStyle}>Messages</Button>
+                <Button color="inherit" onClick={() => navigate('/messages')} size="small" sx={{ ...navButtonStyle, minWidth: 'auto', px: 1.5 }}>Messages</Button>
                 <NotificationBadge />
-                <Button color="inherit" onClick={handleLogout} size="small" sx={navButtonStyle}>Logout</Button>
+                <Button color="inherit" onClick={handleLogout} size="small" sx={{ ...navButtonStyle, minWidth: 'auto', px: 1.5 }}>Logout</Button>
               </>
             ) : (
               <>
@@ -171,6 +172,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <>
                     <ListItem button onClick={() => handleMobileNavigation('/applications')}>
                       <ListItemText primary="Applications" />
+                    </ListItem>
+                    <ListItem button onClick={() => handleMobileNavigation('/saved-jobs')}>
+                      <ListItemText primary="Saved Jobs" />
                     </ListItem>
                     <ListItem button onClick={() => handleMobileNavigation('/profile')}>
                       <ListItemText primary="Profile" />

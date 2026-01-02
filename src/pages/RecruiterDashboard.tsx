@@ -122,10 +122,29 @@ const RecruiterDashboard: React.FC = () => {
     };
 
 
-    // Common styles for Chips to force white text on hover
+    // Common styles for Chips to force white text and proper backgrounds
     const commonChipSx = {
+        fontWeight: 600,
+        '&.MuiChip-colorInfo': {
+            backgroundColor: '#0288d1 !important',
+            color: '#ffffff !important'
+        },
+        '&.MuiChip-colorSuccess': {
+            backgroundColor: '#2e7d32 !important',
+            color: '#ffffff !important'
+        },
+        '&.MuiChip-colorError': {
+            backgroundColor: '#d32f2f !important',
+            color: '#ffffff !important'
+        },
+        '&.MuiChip-colorWarning': {
+            backgroundColor: '#ed6c02 !important',
+            color: '#ffffff !important'
+        },
+        '& .MuiChip-label': {
+            color: '#ffffff !important'
+        },
         '&:hover': {
-            color: '#ffffff !important',
             '& .MuiChip-label': {
                 color: '#ffffff !important'
             }
@@ -141,7 +160,7 @@ const RecruiterDashboard: React.FC = () => {
         try {
             const application = applications.find(app => app.id === applicationId);
             if (!application) {
-                alert('❌ Application not found');
+                alert('Application not found');
                 return;
             }
 
@@ -178,13 +197,13 @@ const RecruiterDashboard: React.FC = () => {
                         content: `Congratulations! Your application for "${application.jobTitle}" has been shortlisted by ${application.companyName || 'our company'}. We'd like to discuss the next steps with you.`
                     });
 
-                    alert('✅ Application shortlisted and message sent to candidate!');
+                    alert('Application shortlisted and message sent to candidate!');
                 } catch (msgError) {
                     console.error('Failed to send shortlist message:', msgError);
-                    alert('✅ Application shortlisted (Note: Failed to send automated message)');
+                    alert('Application shortlisted (Note: Failed to send automated message)');
                 }
             } else {
-                alert(`✅ Application ${newStatus.toLowerCase()} successfully!`);
+                alert(`Application ${newStatus.toLowerCase()} successfully!`);
             }
 
             // Trigger event for UI refresh if needed
@@ -195,7 +214,7 @@ const RecruiterDashboard: React.FC = () => {
             // fetchData(); // Don't refetch immediately to allow optimistic update to persist. Auto-refresh will eventually sync.
         } catch (error) {
             console.error('Error updating status:', error);
-            alert('❌ Error updating status');
+            alert('Error updating status');
         }
     };
 
@@ -237,63 +256,6 @@ const RecruiterDashboard: React.FC = () => {
             {/* Stats Cards */}
             <Box sx={{ px: 3 }}>
                 <Grid container spacing={3} sx={{ mb: 4 }}>
-                    {/* Total Applications */}
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card sx={{
-                            background: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
-                            color: 'white',
-                            height: 120,
-                            borderRadius: 3,
-                            transition: 'all 0.2s ease-in-out',
-                            '&:hover': {
-                                transform: 'translateY(-2px)',
-                                boxShadow: '0 8px 25px 0 rgb(0 0 0 / 0.1)'
-                            }
-                        }}>
-                            <CardContent sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-                                <Box sx={{ mr: 2, opacity: 0.8 }}>
-                                    <People />
-                                </Box>
-                                <Box>
-                                    <Typography variant="h4" sx={{ fontWeight: 700 }}>
-                                        {applications.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                                        Total Applications
-                                    </Typography>
-                                </Box>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-
-                    {/* Total Views */}
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card sx={{
-                            background: 'linear-gradient(135deg, #0288d1 0%, #29b6f6 100%)',
-                            color: 'white',
-                            height: 120,
-                            borderRadius: 3,
-                            transition: 'all 0.2s ease-in-out',
-                            '&:hover': {
-                                transform: 'translateY(-2px)',
-                                boxShadow: '0 8px 25px 0 rgb(0 0 0 / 0.1)'
-                            }
-                        }}>
-                            <CardContent sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-                                <Box sx={{ mr: 2, opacity: 0.8 }}>
-                                    <Visibility />
-                                </Box>
-                                <Box>
-                                    <Typography variant="h4" sx={{ fontWeight: 700 }}>
-                                        {jobs.reduce((sum, job) => sum + (job.views || 0), 0)}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                                        Total Views
-                                    </Typography>
-                                </Box>
-                            </CardContent>
-                        </Card>
-                    </Grid>
                     {stats.map((stat, index) => (
                         <Grid item xs={12} sm={6} md={3} key={index}>
                             <Card sx={{
@@ -439,23 +401,14 @@ const RecruiterDashboard: React.FC = () => {
                                                                         );
                                                                     }
                                                                 } else {
-                                                                    // Fix for double prefix issue
+                                                                    // Handle backend file URLs
                                                                     let fullUrl = url;
-                                                                    if (!url.startsWith('http')) {
-                                                                        // If url already starts with /api (or API_BASE_URL), don't prepend it again
-                                                                        // Assuming API_BASE_URL is '/api' or similar
-                                                                        if (url.startsWith(API_BASE_URL)) {
-                                                                            fullUrl = url;
-                                                                        } else if (url.startsWith('/api/') && API_BASE_URL.includes('/api')) {
-                                                                            fullUrl = url;
-                                                                        } else {
-                                                                            fullUrl = `${API_BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
-                                                                        }
+
+                                                                    // Ensure URL has /api prefix for proper proxying
+                                                                    if (!url.startsWith('http') && !url.startsWith('/api/')) {
+                                                                        fullUrl = '/api' + url;
                                                                     }
-                                                                    // Append host if needed (for relative paths to work in new tab)
-                                                                    // Actually, window.open with relative path opens in current origin, which is correct for proxy.
-                                                                    // But if API_BASE_URL includes host, we are good.
-                                                                    // If API_BASE_URL is just '/api', it works relative to current page domain.
+
                                                                     window.open(fullUrl, '_blank');
                                                                 }
                                                             }}
@@ -475,7 +428,7 @@ const RecruiterDashboard: React.FC = () => {
                                                                 variant="contained"
                                                                 onClick={() => handleStatusUpdate(application.id, 'SHORTLISTED')}
                                                             >
-                                                                ✅ Shortlist
+                                                                Shortlist
                                                             </Button>
                                                             <Button
                                                                 size="small"
@@ -483,7 +436,7 @@ const RecruiterDashboard: React.FC = () => {
                                                                 variant="outlined"
                                                                 onClick={() => navigate('/messages', { state: { partnerId: parseInt(application.applicantId) } })}
                                                             >
-                                                                💬 Message
+                                                                Message
                                                             </Button>
                                                             <Button
                                                                 size="small"
@@ -491,7 +444,7 @@ const RecruiterDashboard: React.FC = () => {
                                                                 variant="outlined"
                                                                 onClick={() => handleStatusUpdate(application.id, 'REJECTED')}
                                                             >
-                                                                ❌ Reject
+                                                                Reject
                                                             </Button>
                                                         </Box>
                                                     ) : (
@@ -556,8 +509,15 @@ const RecruiterDashboard: React.FC = () => {
                                             <TableCell>
                                                 <Chip
                                                     label={job.status || 'ACTIVE'}
-                                                    color={job.status === 'ACTIVE' ? 'success' : 'default'}
                                                     size="small"
+                                                    sx={{
+                                                        backgroundColor: job.status === 'ACTIVE' ? '#2e7d32 !important' : '#757575 !important',
+                                                        color: '#ffffff !important',
+                                                        fontWeight: 600,
+                                                        '& .MuiChip-label': {
+                                                            color: '#ffffff !important'
+                                                        }
+                                                    }}
                                                 />
                                             </TableCell>
                                             <TableCell>

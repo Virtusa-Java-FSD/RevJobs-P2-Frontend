@@ -135,7 +135,7 @@ const Register: React.FC = () => {
             <MenuItem value="JOB_SEEKER">Job Seeker</MenuItem>
             <MenuItem value="RECRUITER">Employer</MenuItem>
             {formData.email === 'sravanikelam27@gmail.com' && (
-              <MenuItem value="ADMIN">🛡️ Admin</MenuItem>
+              <MenuItem value="ADMIN">Admin</MenuItem>
             )}
           </Select>
         </FormControl>
@@ -166,10 +166,10 @@ const Register: React.FC = () => {
             🎓 Free Profile
           </Box>
           <Box className="achievement-badge" sx={{ fontSize: '0.85rem', py: 0.5, px: 2 }}>
-            💼 1000+ Jobs
+            1000+ Jobs
           </Box>
           <Box className="achievement-badge" sx={{ fontSize: '0.85rem', py: 0.5, px: 2 }}>
-            ⚡ Instant Apply
+            Instant Apply
           </Box>
         </Box>
       </form>

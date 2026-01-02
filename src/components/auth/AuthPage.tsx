@@ -38,11 +38,11 @@ const AuthPage: React.FC = () => {
     const isSmallScreen = useMediaQuery('(max-width:900px)');
 
     const motivationalMessages = [
-        "Welcome back! Your next opportunity awaits! 🚀",
-        "Great to see you again! Let's find your dream job! 🎯",
-        "Ready to take the next step in your career? 💪",
-        "Your future starts here! Let's make it happen! ✨",
-        "Success is just one login away! 🌟"
+        "Welcome back! Your next opportunity awaits!",
+        "Great to see you again! Let's find your dream job!",
+        "Ready to take the next step in your career?",
+        "Your future starts here! Let's make it happen!",
+        "Success is just one login away!"
     ];
 
     const [currentMessage, setCurrentMessage] = useState(0);

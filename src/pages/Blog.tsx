@@ -25,14 +25,12 @@ const Blog: React.FC = () => {
     navigate(`/blog/${id}`);
   };
 
-  const categories = ['All', 'Job Market', 'Job Search', 'Interview Tips', 'Career Advice', 'Resume Tips', 'Tech Trends', 'Future of Work', 'Networking'];
-  const [selectedCategory, setSelectedCategory] = useState('All');
+
 
   const filteredPosts = blogPosts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    return matchesSearch;
   });
 
   const featuredPosts = filteredPosts.filter(post => post.featured);
@@ -99,21 +97,7 @@ const Blog: React.FC = () => {
         </Box>
       </Box>
 
-      {/* Categories */}
-      <Box sx={{ py: 3, px: 3 }}>
-        <Box display="flex" justifyContent="center" flexWrap="wrap" gap={1}>
-          {categories.map((category) => (
-            <Chip
-              key={category}
-              label={category}
-              onClick={() => setSelectedCategory(category)}
-              color={selectedCategory === category ? 'primary' : 'default'}
-              variant={selectedCategory === category ? 'filled' : 'outlined'}
-              sx={{ cursor: 'pointer' }}
-            />
-          ))}
-        </Box>
-      </Box>
+
 
       {/* Featured Posts */}
       {featuredPosts.length > 0 && (
@@ -133,7 +117,20 @@ const Blog: React.FC = () => {
                   <CardContent sx={{ p: 4 }}>
                     <Box display="flex" alignItems="center" gap={2} mb={3}>
                       <Box>
-                        <Chip label="Featured" color="primary" size="small" sx={{ mb: 1 }} />
+                        <Chip
+                          label="Featured"
+                          color="primary"
+                          size="small"
+                          sx={{
+                            mb: 1,
+                            backgroundColor: '#1976d2 !important',
+                            color: '#ffffff !important',
+                            fontWeight: 600,
+                            '& .MuiChip-label': {
+                              color: '#ffffff !important'
+                            }
+                          }}
+                        />
                         <Typography variant="caption" sx={{ color: '#757575' }} display="block">
                           {post.category}
                         </Typography>
