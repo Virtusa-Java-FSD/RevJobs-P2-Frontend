@@ -89,6 +89,11 @@ pipeline {
                         
                         # Cleanup
                         ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "rm -rf $tempDir"
+                        
+                        # DEBUG: List the directory structure to verify deployment
+                        Write-Host "--- DEBUG: REMOTE DIRECTORY LISTING ---"
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "ls -laR $targetDir"
+                        Write-Host "---------------------------------------"
                     '''
                 }
             }
