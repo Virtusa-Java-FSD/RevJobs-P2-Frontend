@@ -72,7 +72,23 @@ pipeline {
                         
                         # Move contents of $tempDir/dist to final $targetDir
                         # We use /dist/* to get the content, ensuring correct structure at target
-                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "sudo rm -rf $targetDir/* && sudo cp -r $tempDir/dist/* $targetDir/ && rm -rf $tempDir"
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "sudo rm -rf $targetDir/* && sudo cp -r $tempDir/dist/* $targetDir/"
+                        
+                        # Fix Permissions (Crucial for Nginx 403 Forbidden)
+                        # 1. Change ownership to ec2-user (so future non-sudo operations work)
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "sudo chown -R ec2-user:ec2-user $targetDir"
+                        
+                        # 2. Set Directory Permissions to 755 (Read/Execute for everyone)
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "sudo find $targetDir -type d -exec chmod 755 {} \\;"
+                        
+                        # 3. Set File Permissions to 644 (Read for everyone)
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "sudo find $targetDir -type f -exec chmod 644 {} \\;"
+                        
+                        # 4. Ensure Parent Directory is Executable (Nginx needs to execute /home/ec2-user)
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "sudo chmod o+x /home/ec2-user"
+                        
+                        # Cleanup
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "rm -rf $tempDir"
                     '''
                 }
             }
