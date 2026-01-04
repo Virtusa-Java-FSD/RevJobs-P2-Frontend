@@ -61,19 +61,18 @@ pipeline {
                         
                         Write-Host "Deploying to $remote..."
                         
-                        # Upload dist folder to home directory first (avoids permission issues with /usr/share/nginx)
-                        # We upload 'dist' to a temp folder name
+                        # Use a predictable temp directory structure
                         $tempDir = "frontend_temp_deploy"
                         
-                        # Remove stale temp dir if exists
-                        # Added -v for debugging, BatchMode=yes to fail instead of hang on password prompt, ConnectTimeout=10
-                        ssh -v -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "rm -rf $tempDir"
+                        # Clean and Create temp dir
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "rm -rf $tempDir && mkdir -p $tempDir"
                         
-                        # Upload
+                        # Upload dist folder INTO tempDir (creates $tempDir/dist)
                         scp -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 -r dist "${remote}:${tempDir}"
                         
-                        # Move to final destination using sudo
-                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "sudo rm -rf $targetDir/* && sudo cp -r $tempDir/* $targetDir/ && rm -rf $tempDir"
+                        # Move contents of $tempDir/dist to final $targetDir
+                        # We use /dist/* to get the content, ensuring correct structure at target
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "sudo rm -rf $targetDir/* && sudo cp -r $tempDir/dist/* $targetDir/ && rm -rf $tempDir"
                     '''
                 }
             }
