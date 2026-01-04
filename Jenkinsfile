@@ -64,10 +64,22 @@ pipeline {
                         # Use a predictable temp directory structure
                         $tempDir = "frontend_temp_deploy"
                         
+                        # Cleanup
+                        ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "rm -rf $tempDir"
+                        
+                        # DEBUG: LOCAL BUILD VERIFICATION (Is dist empty?)
+                        Write-Host "--- DEBUG: LOCAL DIST FOLDER CONTENT ---"
+                        if (Test-Path dist) {
+                            Get-ChildItem -Recurse dist
+                        } else {
+                            Write-Host "ERROR: dist folder NOT FOUND locally!"
+                        }
+                        Write-Host "----------------------------------------"
+
                         # Clean and Create temp dir
                         ssh -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 $remote "rm -rf $tempDir && mkdir -p $tempDir"
                         
-                        # Upload dist folder INTO tempDir (creates $tempDir/dist)
+                        # Upload
                         scp -i $keyPath -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=10 -r dist "${remote}:${tempDir}"
                         
                         # Move contents of $tempDir/dist to final $targetDir
