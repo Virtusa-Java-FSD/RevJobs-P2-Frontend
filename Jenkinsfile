@@ -10,7 +10,7 @@ pipeline {
         // We read the EC2 IP from a Global Variable named 'EC2_INFRA_IP' which you will set in Jenkins
         REMOTE_HOST = "${env.EC2_INFRA_IP}" 
         REMOTE_USER = "ec2-user"
-        REMOTE_DIR = "/usr/share/nginx/html"
+        REMOTE_DIR = "/home/ec2-user/revjobs/frontend/dist"
         SSH_CREDENTIALS_ID = "ec2-ssh-key" // You must create this ID in Jenkins Credentials
     }
 
