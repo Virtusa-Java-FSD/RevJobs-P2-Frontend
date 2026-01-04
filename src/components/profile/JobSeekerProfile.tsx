@@ -393,14 +393,14 @@ const JobSeekerProfile: React.FC = () => {
               {profile.resumeUrl && (
                 <Box>
                   <Typography variant="body2" color="success.main" sx={{ mb: 1 }}>
-                    📄 Resume: {(profile as any).resumeName || 'Saved from job application'}
+                    Resume: {(profile as any).resumeName || 'Saved from job application'}
                   </Typography>
                   <Button
                     variant="outlined"
                     size="small"
                     onClick={() => window.open(profile.resumeUrl, '_blank')}
                   >
-                    📖 View Resume
+                    View Resume
                   </Button>
                 </Box>
               )}

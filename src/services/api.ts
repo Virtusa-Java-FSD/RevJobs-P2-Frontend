@@ -183,20 +183,35 @@ export const jobAPI = {
 
 // Application API
 export const applicationAPI = {
-    apply: async (jobId: number, coverLetter: string, resumeUrl: string, companyName?: string, jobTitle?: string) => {
+    apply: async (applicationData: {
+        jobId: number;
+        coverLetter: string;
+        resumeUrl: string;
+        companyName?: string;
+        jobTitle?: string;
+        applicantName?: string;
+        applicantPhone?: string;
+        gender?: string;
+        nationality?: string;
+        currentLocation?: string;
+        yearsOfExperience?: number;
+        currentCompany?: string;
+        education?: string;
+        skills?: string;
+        linkedinUrl?: string;
+        portfolioUrl?: string;
+        expectedSalary?: string;
+        noticePeriod?: string;
+    }) => {
         try {
             const user = getCurrentUser();
             const response = await fetch(`${API_BASE_URL}/applications`, {
                 method: 'POST',
                 headers: getAuthHeaders(),
                 body: JSON.stringify({
-                    jobId,
+                    ...applicationData,
                     applicantId: user.id,
                     applicantEmail: user.email,
-                    coverLetter,
-                    resumeUrl,
-                    companyName,
-                    jobTitle,
                     status: 'PENDING'
                 })
             });
@@ -388,7 +403,7 @@ export const notificationAPI = {
             return [];
         }
     },
-    markAsRead: async (notificationId: number) => {
+    markAsRead: async (notificationId: string | number) => {
         try {
             await fetch(`${API_BASE_URL}/notifications/${notificationId}/read`, {
                 method: 'PATCH',

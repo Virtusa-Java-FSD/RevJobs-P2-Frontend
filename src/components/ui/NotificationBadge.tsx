@@ -63,8 +63,8 @@ const NotificationBadge: React.FC = () => {
 
         try {
             const { notificationAPI } = await import('../../services/api');
-            // id from frontend might be string, backend expects number
-            await notificationAPI.markAsRead(Number(id));
+            // id from frontend might be string, backend expects number in original code, but now String for Mongo
+            await notificationAPI.markAsRead(id);
 
             setNotifications(prev =>
                 prev.map(n => n.id === id ? { ...n, read: true } : n)

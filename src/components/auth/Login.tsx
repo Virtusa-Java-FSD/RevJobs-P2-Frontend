@@ -114,7 +114,7 @@ const Login: React.FC = () => {
         {/* Quick Tip */}
         <Box className="tips-card" sx={{ mt: 3, p: 2 }}>
           <Typography variant="body2" sx={{ fontWeight: 600, color: '#ff6b6b', mb: 1 }}>
-            💡 Career Tip:
+            Career Tip:
           </Typography>
           <Typography variant="body2" sx={{ color: '#666' }}>
             Update your profile regularly to increase your chances of being discovered by recruiters!

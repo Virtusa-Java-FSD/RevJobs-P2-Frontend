@@ -395,7 +395,7 @@ const AdminDashboard: React.FC = () => {
               <Tab label="Jobs Management" />
               <Tab label="Users Management" />
               <Tab label="Applications" />
-              <Tab label="📈 Analytics" />
+              <Tab label="Analytics" />
             </Tabs>
           </Box>
 
@@ -473,11 +473,11 @@ const AdminDashboard: React.FC = () => {
                   <Box sx={{ '& > div': { mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' } }}>
                     <Box>
                       <Typography variant="body2">Database</Typography>
-                      <Chip label="🟢 Online" color="success" size="small" />
+                      <Chip label="Online" color="success" size="small" />
                     </Box>
                     <Box>
                       <Typography variant="body2">API Status</Typography>
-                      <Chip label="🟢 Healthy" color="success" size="small" />
+                      <Chip label="Healthy" color="success" size="small" />
                     </Box>
                     <Box>
                       <Typography variant="body2">Active Users</Typography>
@@ -1090,7 +1090,7 @@ const AdminDashboard: React.FC = () => {
       {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
         <DialogTitle>
-          🗑️ Confirm Deletion
+          Confirm Deletion
         </DialogTitle>
         <DialogContent>
           <Typography>

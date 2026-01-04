@@ -180,7 +180,7 @@ const ForgotPassword: React.FC = () => {
           }}
           disabled={loading}
         >
-          {loading ? '⏳ Sending OTP...' : '📧 Send OTP'}
+          {loading ? 'Sending OTP...' : 'Send OTP'}
         </Button>
       </form>
     </>
@@ -243,7 +243,7 @@ const ForgotPassword: React.FC = () => {
           }}
           disabled={loading}
         >
-          {loading ? '⏳ Verifying...' : '✅ Verify OTP'}
+          {loading ? 'Verifying...' : 'Verify OTP'}
         </Button>
       </form>
 
@@ -334,7 +334,7 @@ const ForgotPassword: React.FC = () => {
           }}
           disabled={loading}
         >
-          {loading ? '⏳ Resetting Password...' : '🔒 Reset Password'}
+          {loading ? 'Resetting Password...' : 'Reset Password'}
         </Button>
       </form>
     </>

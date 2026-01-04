@@ -163,7 +163,7 @@ const Register: React.FC = () => {
         {/* Benefits Badge */}
         <Box className="badge-container" sx={{ justifyContent: 'center', mt: 2 }}>
           <Box className="achievement-badge" sx={{ fontSize: '0.85rem', py: 0.5, px: 2 }}>
-            🎓 Free Profile
+            Free Profile
           </Box>
           <Box className="achievement-badge" sx={{ fontSize: '0.85rem', py: 0.5, px: 2 }}>
             1000+ Jobs

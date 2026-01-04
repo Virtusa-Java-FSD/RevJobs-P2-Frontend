@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Card, CardContent, Typography, Button, Chip, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Grid, Divider, Alert, Container } from '@mui/material';
+import { Box, Card, CardContent, Typography, Button, Chip, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Grid, Divider, Alert, Container, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { LocationOn, Work, AttachMoney, CalendarToday, Business, Share, Bookmark, CloudUpload } from '@mui/icons-material';
 import { useParams } from 'react-router-dom';
 
@@ -13,12 +13,35 @@ const JobDetail: React.FC = () => {
   const [job, setJob] = useState<Job | null>(null);
   const [loading, setLoading] = useState(true);
   const [applyDialogOpen, setApplyDialogOpen] = useState(false);
+
+  // Resume fields
   const [resumeUrl, setResumeUrl] = useState('');
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [applying, setApplying] = useState(false);
   const [applied, setApplied] = useState(false);
   const [saved, setSaved] = useState(false);
+
+  // Personal Information
+  const [applicantName, setApplicantName] = useState('');
+  const [applicantPhone, setApplicantPhone] = useState('');
+  const [gender, setGender] = useState('');
+  const [nationality, setNationality] = useState('');
+  const [currentLocation, setCurrentLocation] = useState('');
+
+  // Professional Details
+  const [yearsOfExperience, setYearsOfExperience] = useState('');
+  const [currentCompany, setCurrentCompany] = useState('');
+  const [education, setEducation] = useState('');
+  const [skills, setSkills] = useState('');
+
+  // Additional Information
+  const [coverLetter, setCoverLetter] = useState('');
+  const [linkedinUrl, setLinkedinUrl] = useState('');
+  const [portfolioUrl, setPortfolioUrl] = useState('');
+  const [expectedSalary, setExpectedSalary] = useState('');
+  const [noticePeriod, setNoticePeriod] = useState('');
+
   const { user } = useAuth();
 
   useEffect(() => {
@@ -44,6 +67,43 @@ const JobDetail: React.FC = () => {
       return;
     }
 
+    // Validate required fields
+    if (!applicantName.trim()) {
+      alert('Please enter your full name');
+      return;
+    }
+    if (!applicantPhone.trim()) {
+      alert('Please enter your phone number');
+      return;
+    }
+    if (!gender) {
+      alert('Please select your gender');
+      return;
+    }
+    if (!nationality.trim()) {
+      alert('Please enter your nationality');
+      return;
+    }
+    if (!currentLocation.trim()) {
+      alert('Please enter your current location');
+      return;
+    }
+    if (!yearsOfExperience) {
+      alert('Please select your years of experience');
+      return;
+    }
+    if (!education) {
+      alert('Please select your education level');
+      return;
+    }
+    if (!skills.trim()) {
+      alert('Please enter your key skills');
+      return;
+    }
+    if (!coverLetter.trim() || coverLetter.length < 50) {
+      alert('Please write a cover letter (minimum 50 characters)');
+      return;
+    }
     if (!job || (!resumeUrl.trim() && !resumeFile)) {
       alert('Please provide your resume URL or upload a PDF file');
       return;
@@ -52,8 +112,6 @@ const JobDetail: React.FC = () => {
     setApplying(true);
     try {
       let finalResumeUrl = resumeUrl;
-
-
 
       // Handle file upload if file selected
       if (resumeFile) {
@@ -80,7 +138,27 @@ const JobDetail: React.FC = () => {
         localStorage.setItem(`userProfile_${user.email}`, JSON.stringify(savedProfile));
       }
 
-      const result = await applicationAPI.apply(parseInt(job.id), `Resume provided`, finalResumeUrl, job.companyName, job.title);
+      // Submit application with all fields
+      const result = await applicationAPI.apply({
+        jobId: parseInt(job.id),
+        coverLetter,
+        resumeUrl: finalResumeUrl,
+        companyName: job.companyName,
+        jobTitle: job.title,
+        applicantName,
+        applicantPhone,
+        gender,
+        nationality,
+        currentLocation,
+        yearsOfExperience: parseInt(yearsOfExperience),
+        currentCompany: currentCompany || undefined,
+        education,
+        skills,
+        linkedinUrl: linkedinUrl || undefined,
+        portfolioUrl: portfolioUrl || undefined,
+        expectedSalary: expectedSalary || undefined,
+        noticePeriod: noticePeriod || undefined,
+      });
 
       // Store application in localStorage as backup
       const appliedJobs = JSON.parse(localStorage.getItem(`appliedJobs_${user.email}`) || '[]');
@@ -94,7 +172,10 @@ const JobDetail: React.FC = () => {
         },
         appliedDate: new Date().toISOString(),
         status: 'PENDING',
-        coverLetter: `CV: ${finalResumeUrl}`
+        coverLetter,
+        applicantName,
+        applicantPhone,
+        skills
       };
       appliedJobs.push(newApplication);
       localStorage.setItem(`appliedJobs_${user.email}`, JSON.stringify(appliedJobs));
@@ -123,15 +204,30 @@ const JobDetail: React.FC = () => {
         id: Date.now().toString(),
         type: 'application',
         from: user?.email,
-        message: `New application from ${user?.email} for ${job.title}`,
+        message: `New application from ${applicantName} (${user?.email}) for ${job.title}`,
         timestamp: new Date().toISOString(),
         read: false
       });
       localStorage.setItem(`notifications_${recruiterEmail}`, JSON.stringify(recruiterNotifications));
 
+      // Reset form
       setApplyDialogOpen(false);
       setResumeUrl('');
       setResumeFile(null);
+      setApplicantName('');
+      setApplicantPhone('');
+      setGender('');
+      setNationality('');
+      setCurrentLocation('');
+      setYearsOfExperience('');
+      setCurrentCompany('');
+      setEducation('');
+      setSkills('');
+      setCoverLetter('');
+      setLinkedinUrl('');
+      setPortfolioUrl('');
+      setExpectedSalary('');
+      setNoticePeriod('');
       setApplied(true);
 
       // Trigger events for all relevant pages to refresh
@@ -416,64 +512,261 @@ const JobDetail: React.FC = () => {
 
         {/* Apply Dialog */}
         <Dialog open={applyDialogOpen} onClose={() => setApplyDialogOpen(false)} maxWidth="md" fullWidth>
-          <DialogTitle>Apply for {job.title}</DialogTitle>
-          <DialogContent>
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="body2" sx={{ mb: 2, fontWeight: 600 }}>Resume URL</Typography>
-              <TextField
-                fullWidth
-                placeholder="https://drive.google.com/your-resume-link"
-                value={resumeUrl}
-                onChange={(e) => setResumeUrl(e.target.value)}
-                helperText="Paste your Google Drive, Dropbox, or LinkedIn resume link"
-                sx={{ mb: 3 }}
-              />
+          <DialogTitle sx={{ bgcolor: 'primary.main', color: 'white', fontWeight: 700 }}>
+            Apply for {job.title}
+          </DialogTitle>
+          <DialogContent sx={{ pt: 3 }}>
+            {/* Personal Information Section */}
+            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, color: 'primary.main', mb: 2 }}>
+              Personal Information
+            </Typography>
+            <Grid container spacing={2} sx={{ mb: 3 }}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  required
+                  label="Full Name"
+                  value={applicantName}
+                  onChange={(e) => setApplicantName(e.target.value)}
+                  placeholder="John Doe"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  required
+                  label="Phone Number"
+                  value={applicantPhone}
+                  onChange={(e) => setApplicantPhone(e.target.value)}
+                  placeholder="+1 234 567 8900"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth required>
+                  <InputLabel>Gender</InputLabel>
+                  <Select
+                    value={gender}
+                    label="Gender"
+                    onChange={(e) => setGender(e.target.value)}
+                  >
+                    <MenuItem value="Male">Male</MenuItem>
+                    <MenuItem value="Female">Female</MenuItem>
+                    <MenuItem value="Other">Other</MenuItem>
+                    <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  required
+                  label="Nationality"
+                  value={nationality}
+                  onChange={(e) => setNationality(e.target.value)}
+                  placeholder="United States"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  required
+                  label="Current Location"
+                  value={currentLocation}
+                  onChange={(e) => setCurrentLocation(e.target.value)}
+                  placeholder="New York, NY, USA"
+                />
+              </Grid>
+            </Grid>
 
-              <Typography variant="body2" sx={{ mb: 2, fontWeight: 600, textAlign: 'center' }}>OR</Typography>
+            <Divider sx={{ my: 3 }} />
 
-              <Box sx={{ textAlign: 'center', mb: 2 }}>
-                <Button
-                  variant="outlined"
-                  component="label"
-                  startIcon={<CloudUpload />}
-                  sx={{ mb: 1 }}
-                >
-                  Upload Resume PDF
-                  <input
-                    type="file"
-                    hidden
-                    accept=".pdf"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        if (file.type !== 'application/pdf') {
-                          alert('Please upload a PDF file only');
-                          return;
+            {/* Professional Details Section */}
+            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, color: 'primary.main', mb: 2 }}>
+              Professional Details
+            </Typography>
+            <Grid container spacing={2} sx={{ mb: 3 }}>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth required>
+                  <InputLabel>Years of Experience</InputLabel>
+                  <Select
+                    value={yearsOfExperience}
+                    label="Years of Experience"
+                    onChange={(e) => setYearsOfExperience(e.target.value)}
+                  >
+                    <MenuItem value="0">0-1 years</MenuItem>
+                    <MenuItem value="2">1-3 years</MenuItem>
+                    <MenuItem value="4">3-5 years</MenuItem>
+                    <MenuItem value="7">5-10 years</MenuItem>
+                    <MenuItem value="11">10+ years</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth required>
+                  <InputLabel>Education Level</InputLabel>
+                  <Select
+                    value={education}
+                    label="Education Level"
+                    onChange={(e) => setEducation(e.target.value)}
+                  >
+                    <MenuItem value="High School">High School</MenuItem>
+                    <MenuItem value="Associate Degree">Associate Degree</MenuItem>
+                    <MenuItem value="Bachelor's Degree">Bachelor's Degree</MenuItem>
+                    <MenuItem value="Master's Degree">Master's Degree</MenuItem>
+                    <MenuItem value="Doctorate (Ph.D.)">Doctorate (Ph.D.)</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Current Company (Optional)"
+                  value={currentCompany}
+                  onChange={(e) => setCurrentCompany(e.target.value)}
+                  placeholder="Acme Corp"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  required
+                  multiline
+                  rows={2}
+                  label="Key Skills"
+                  value={skills}
+                  onChange={(e) => setSkills(e.target.value)}
+                  placeholder="JavaScript, React, Node.js, Python, AWS..."
+                  helperText="Comma-separated list of your key skills"
+                />
+              </Grid>
+            </Grid>
+
+            <Divider sx={{ my: 3 }} />
+
+            {/* Application Materials Section */}
+            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, color: 'primary.main', mb: 2 }}>
+              Application Materials
+            </Typography>
+            <Grid container spacing={2} sx={{ mb: 3 }}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  required
+                  multiline
+                  rows={4}
+                  label="Cover Letter"
+                  value={coverLetter}
+                  onChange={(e) => setCoverLetter(e.target.value)}
+                  placeholder="Write a compelling cover letter explaining why you're the perfect fit for this role..."
+                  helperText={`${coverLetter.length} characters (minimum 50 required)`}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>Resume *</Typography>
+                <TextField
+                  fullWidth
+                  placeholder="https://drive.google.com/your-resume-link"
+                  value={resumeUrl}
+                  onChange={(e) => setResumeUrl(e.target.value)}
+                  helperText="Paste your Google Drive, Dropbox, or LinkedIn resume link"
+                  sx={{ mb: 2 }}
+                />
+                <Box sx={{ textAlign: 'center', mb: 1 }}>
+                  <Typography variant="body2" sx={{ mb: 1, fontWeight: 600 }}>OR</Typography>
+                  <Button
+                    variant="outlined"
+                    component="label"
+                    startIcon={<CloudUpload />}
+                  >
+                    Upload Resume PDF
+                    <input
+                      type="file"
+                      hidden
+                      accept=".pdf"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          if (file.type !== 'application/pdf') {
+                            alert('Please upload a PDF file only');
+                            return;
+                          }
+                          if (file.size > 5 * 1024 * 1024) {
+                            alert('File size should be less than 5MB');
+                            return;
+                          }
+                          setResumeFile(file);
+                          setResumeUrl(''); // Clear URL if file is uploaded
                         }
-                        if (file.size > 5 * 1024 * 1024) {
-                          alert('File size should be less than 5MB');
-                          return;
-                        }
-                        setResumeFile(file);
-                        setResumeUrl(''); // Clear URL if file is uploaded
-                      }
-                    }}
-                  />
-                </Button>
-                {resumeFile && (
-                  <Typography variant="body2" color="success.main">
-                    📄 {resumeFile.name} selected
-                  </Typography>
-                )}
-              </Box>
-            </Box>
+                      }}
+                    />
+                  </Button>
+                  {resumeFile && (
+                    <Typography variant="body2" color="success.main" sx={{ mt: 1 }}>
+                      {resumeFile.name} selected
+                    </Typography>
+                  )}
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="LinkedIn Profile (Optional)"
+                  value={linkedinUrl}
+                  onChange={(e) => setLinkedinUrl(e.target.value)}
+                  placeholder="https://linkedin.com/in/your-profile"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Portfolio/Website (Optional)"
+                  value={portfolioUrl}
+                  onChange={(e) => setPortfolioUrl(e.target.value)}
+                  placeholder="https://yourportfolio.com"
+                />
+              </Grid>
+            </Grid>
+
+            <Divider sx={{ my: 3 }} />
+
+            {/* Additional Information Section */}
+            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, color: 'primary.main', mb: 2 }}>
+              Additional Information (Optional)
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Expected Salary Range"
+                  value={expectedSalary}
+                  onChange={(e) => setExpectedSalary(e.target.value)}
+                  placeholder="$80,000 - $100,000"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>Notice Period / Availability</InputLabel>
+                  <Select
+                    value={noticePeriod}
+                    label="Notice Period / Availability"
+                    onChange={(e) => setNoticePeriod(e.target.value)}
+                  >
+                    <MenuItem value="Immediate">Immediate</MenuItem>
+                    <MenuItem value="15 days">15 days</MenuItem>
+                    <MenuItem value="1 month">1 month</MenuItem>
+                    <MenuItem value="2 months">2 months</MenuItem>
+                    <MenuItem value="3+ months">3+ months</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
           </DialogContent>
-          <DialogActions>
+          <DialogActions sx={{ px: 3, pb: 3 }}>
             <Button onClick={() => setApplyDialogOpen(false)} sx={{ color: '#666' }}>Cancel</Button>
             <Button
               onClick={handleApply}
               variant="contained"
-              disabled={applying || uploading || (!resumeUrl.trim() && !resumeFile)}
+              disabled={applying || uploading}
               sx={{
                 background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
                 '&:hover': {
@@ -481,7 +774,7 @@ const JobDetail: React.FC = () => {
                 }
               }}
             >
-              {applying ? (uploading ? 'Uploading...' : 'Applying...') : 'Submit Application'}
+              {applying ? (uploading ? 'Uploading...' : 'Submitting Application...') : 'Submit Application'}
             </Button>
           </DialogActions>
         </Dialog>
